@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %} Añadir/Modificar Ticket  {% endblock %}
+
+		{% block header %}
+
+		{% endblock %}
+
+
+		{% block content %}
+		<br>
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="{% url 'ticket_home' %}">Tickets</a></li>
+		  <li class="breadcrumb-item active">Nuevo</li>
+		</ol>
+
+		<br>
+			<h3>Añadir o Modificar Ticket</h3>
+		<br>
+
+		{% if form.errors %}
+			Reporte de errores:
+			{{ form.errors }}
+		{% endif %}
+
+
+		<br>
+			<div class="container">
+				<fieldset>
+					<form method="post" class="form-horizontal" enctype="multipart/form-data"> {# {% url 'tickets' %} #}
+						{% csrf_token %} {# {{ form.as_p }} #}
+						<div class="row">
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.codigo.label}}">{{form.codigo.label}}</label>		{# Codigo 		Nuevo #}
+									{{form.codigo}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.categoria.label}}">{{form.categoria.label}}</label>		{# Categoria #}
+									{{form.categoria}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.ubicacion.label}}">{{form.ubicacion.label}}</label>		{# Ubicacion #}
+									{{form.ubicacion}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.usuario.label}}">{{form.usuario.label}}</label>			{# Usuario #}
+									{{form.usuario}}
+								</div>
+							</div>
+
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.grupo_destino.label}}">{{form.grupo_destino.label}}</label>	{# Grupo #}
+									{{form.grupo_destino}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.detalle.label}}">{{form.detalle.label}}</label>			{# Detalle #}
+									{{form.detalle}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.equipo.label}}">{{form.equipo.label}}</label>			{# Equipo #}
+									{{form.equipo}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.fecha.label}}">{{form.fecha.label}}</label>				{# Fecha #}
+									{{form.fecha}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.fecha_fin.label}}">{{form.fecha_fin.label}}</label>		{# Fecha_fin		Nuevo #}		
+									{{form.fecha_fin}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.estado.label}}">{{form.estado.label}}</label>			{# Estado #}
+									{{form.estado}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.editado_por.label}}">{{form.editado_por.label}}</label>			{# Editado_por		Nuevo #}
+									{{form.editado_por}}
+								</div>
+							</div>
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<label for="{{form.imagen.label}}">{{form.imagen.label}}</label>			{# Imagen			Nuevo #}
+									{{form.imagen}}
+								</div>
+							</div>
+
+							<div class="col-md-8 col-md-offset-2">
+								<div class="form-grup" style="padding:5px;">
+									<br>
+									<button type="submit" class="btn btn-success">Guardar</button>
+									<a class="btn btn-secondary" href="{% url 'ticket_list' %}" style="color:white">Cancelar</a>
+								</div>
+							</div>
+						</div>
+				</fieldset>
+				</form>
+			</div>
+		
+		<br>
+		{% endblock %}
+
+		{% block footer %}
+		<br>
+		{% endblock %}
+
+
+

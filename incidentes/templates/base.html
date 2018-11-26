@@ -1,0 +1,114 @@
+{% load staticfiles %}
+
+<!Doctype html>
+<html lang="es">
+	<head>
+		{% load staticfiles %}
+    	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="{% static 'normalize.css' %}">
+		<link rel="stylesheet" href="{% static '/themes/cosmo/bootstrap.min.css' %}">
+
+		<script type="text/javascript" src="{% static 'd3.min.js' %}"></script>
+
+
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+
+		{% block contrastic %}
+		{% endblock %}
+
+
+			<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"> -->
+
+
+
+		<title> 
+			{% block title %} Titulo  {% endblock %} 
+		</title>
+	</head>
+
+	<body>
+	<div class="container"> 
+
+		{% block navbar %}
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			  <a class="navbar-brand" href="{% url 'home' %}">ATMS</a>
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+
+			  <div class="collapse navbar-collapse" id="navbarColor03">
+			    <ul class="navbar-nav mr-auto">
+			      <li class="nav-item active">
+			        <a class="nav-link" href="{% url 'home' %}">Index<span class="sr-only">(current)</span></a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="{% url 'ticket_home' %}">Tickets</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Equipos</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Documentos</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Actividades</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Personal</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Aportes</a>
+			      </li>
+			    </ul>
+<!-- 			    <form class="form-inline my-2 my-lg-0">
+			      <input class="form-control mr-sm-2" type="text" placeholder="Search">
+			      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+			    </form> -->
+			  </div>
+			</nav>
+		{% endblock %}
+
+
+
+		{% block header %}
+			<h4>Bloque Header</h4>
+		{% endblock %}
+
+
+
+		{% block content %}
+			<h4>Bloque Content</h4>
+		{% endblock %}
+
+
+
+		{% block footer %}
+				<address>
+				  <strong>ATMS.</strong><br>
+				  Avenida Costanera, Asunción<br>
+				  <!-- <abbr title="Phone">P:</abbr> (123) 456-7890 -->
+				  <a href="mailto:#">asu.atms@gmail.com</a>
+				</address>		
+		{% endblock %}
+
+		
+	</div>
+
+	
+
+	{# <!-- Minified Bootstrap CSS --> #}
+	{# arriba #}
+
+	<!-- Minified JS library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
+	<!-- Minified Bootstrap JS -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	</body>
+</html>
+

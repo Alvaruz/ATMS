@@ -1,0 +1,15 @@
+body{
+	margin: 0;
+	padding: 0;
+	font-family: "montserrat", sans-serif;
+}
+
+/*.servicex:hover{
+	background:  #ddd;
+}*/
+
+.'fas fa-bell'{
+	color: #3498db;
+	font-size: 34px;
+	margin-bottom: 15px;
+}

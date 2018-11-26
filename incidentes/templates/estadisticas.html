@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %} Informes y Estadísticas  {% endblock %}
+
+		{% block header %}
+
+		{% endblock %}
+
+
+		{% block content %}
+		<br>
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="{% url 'ticket_home' %}">Tickets</a></li>
+		  <li class="breadcrumb-item active">INFORMES</li>
+		</ol>
+
+		<br>
+			<h3>Estadísticas</h3>
+		<br>
+
+	    <div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="form-grup" style="padding:5px;">
+						<h1>Total Tickets</h1>
+					 	<canvas id="myCanvas"></canvas>
+						<div id="myLegend"></div>
+					 	{% load staticfiles %}
+						<script type="text/javascript" src="{% static 'script.js' %}"></script>
+					</div>
+				</div>
+
+
+				<div class="form-grup" style="padding:5px;">
+					<h1>Tickets Cerrados</h1>
+				 	<canvas id="myCanvas2"></canvas>
+					<div id="myLegend2"></div>
+				 	{% load staticfiles %}
+					<script type="text/javascript" src="{% static 'script2.js' %}"></script>
+				</div>
+			</div>
+
+			<br>
+			<br>
+		</div>
+
+			<div style="position: absolute; top: 600; left: 300;">
+							<h1>Categorias</h1>
+							<canvas id="myCanvas3"></canvas>
+							<div id="myLegend3"></div>
+						 	{% load staticfiles %}
+							<script type="text/javascript" src="{% static 'script3.js' %}"></script>
+			</div>
+
+
+<!-- 		{% load static %}
+		<img src=" {% static 'estadisticas3.jpg' %} " alt="Error3"> -->
+
+
+
+		
+		
+		<br>
+		<br>
+		<br>
+		{% endblock %}
+
+		{% block footer %}
+		<br>
+		{% endblock %}
+
+
+

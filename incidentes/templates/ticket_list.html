@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %} Listar Tickets  {% endblock %}
+
+		{% block header %}
+			<br>
+			<ol class="breadcrumb">
+			  <li class="breadcrumb-item"><a href="{% url 'ticket_home' %}">Tickets</a></li> <!-- "http://192.168.5.34:8000/main/tickets/" -->
+			  <li class="breadcrumb-item active">Listar</li>
+			</ol>
+
+		<br>
+			<h2>Listar Tickets</h2>
+		<br>
+		{% endblock %}
+
+
+
+		{% block content %}
+		<div class="container">
+			<br>
+			{% if ticket %}
+				<table class="table table-hover">
+				  <thead>
+				    <tr>
+				      <th scope="col">Nombre</th>
+				      <th scope="col">Categoria</th>
+				      <th scope="col">Remitido</th>
+				      <th scope="col" style="text-align:center;">Fecha</th>
+				      <th scope="col">Estado</th>
+				      <th scope="col" style="text-align:center;">Acciones</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	
+				  	{% for tk in ticket %}
+						<!-- PENDIENTES warning-->
+							{% if tk.estado.nombre == 'Pendiente' %}
+								<tr class="table-default">
+							      <td><p class="text-warning">{{tk.ubicacion}}</p></td>
+							      <td><p class="text-warning">{{tk.categoria}}</p></td>
+							      <td><p class="text-warning">{{tk.grupo_destino}}</p></td>
+							      <td><p class="text-warning">{{tk.fecha}}</p></td>
+							      <td><p class="text-warning"><strong>{{tk.estado}}</strong></p></td>
+							      <td>
+									<div class="btn-group">
+									    <a class="btn btn-secondary" href="{% url 'ticket_edit' tk.id %}">Editar</a>
+									   	<a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
+									</div>
+							    </tr>
+								{% else %}
+
+								<!-- VENCIDOS danger-->
+									{% if tk.estado.nombre == 'Vencido' %}
+										<tr class="table-default">
+									      <td><p class="text-danger">{{tk.ubicacion}}</p></td>
+									      <td><p class="text-danger">{{tk.categoria}}</p></td>
+									      <td><p class="text-danger">{{tk.grupo_destino}}</p></td>
+									      <td><p class="text-danger">{{tk.fecha}}</p></td>
+									      <td><p class="text-danger"><strong>{{tk.estado}}</strong></p></td>
+									      <td>
+											<div class="btn-group">
+											    <a class="btn btn-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
+											   	<a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
+											</div>
+								    	</tr>
+										{% else %}
+
+														<!-- ATENDIDOS success-->
+														{% if tk.estado.nombre == 'Atendido' %}
+															<tr class="table-default">
+														      <td><p class="text-success">{{tk.ubicacion}}</p></td>
+														      <td><p class="text-success">{{tk.categoria}}</p></td>
+														      <td><p class="text-success">{{tk.grupo_destino}}</p></td>
+														      <td><p class="text-success">{{tk.fecha}}</p></td>
+														      <td><p class="text-success"><strong>{{tk.estado}}</strong></p></td>
+														      <td>
+																<div class="btn-group">
+																    <a class="btn btn-outline-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
+																   	<a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
+																</div>
+														    </tr>
+														{% else %}
+
+																<!-- CERRADOS neutral-->
+																{% if tk.estado.nombre == 'Cerrado' %}
+																	<tr class="table-default">
+																      <td><p class="text-primary">{{tk.ubicacion}}</p></td>
+																      <td><p class="text-primary">{{tk.categoria}}</p></td>
+																      <td><p class="text-primary">{{tk.grupo_destino}}</p></td>
+																      <td><p class="text-primary">{{tk.fecha}}</p></td>
+																      <td><p class="text-primary"><strong>{{tk.estado}}</strong></p></td>
+																      <td>
+																		<div class="btn-group">
+																		    <a class="btn btn-outline-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
+																		   	<a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
+																		</div>
+																    </tr>
+																{% endif %}
+														{% endif %}
+											{% endif %}
+								{% endif %}
+					{% endfor %}
+									
+				  </tbody>
+				</table> 
+				<br>
+			</div>
+
+			{% else %}
+				<h2>No hay Tickets para mostrar</h2>
+			{% endif %}
+		{% endblock %}
+
+
+
+		{% block footer %}
+		<br>
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group mr-2" role="group" aria-label="First group">
+    <button type="button" class="btn btn-secondary">1</button>
+    <button type="button" class="btn btn-secondary">2</button>
+    <button type="button" class="btn btn-secondary">3</button>
+    <button type="button" class="btn btn-secondary">4</button>
+  </div>
+  <div class="btn-group mr-2" role="group" aria-label="Second group">
+    <button type="button" class="btn btn-secondary">5</button>
+    <button type="button" class="btn btn-secondary">6</button>
+    <button type="button" class="btn btn-secondary">7</button>
+  </div>
+  <div class="btn-group" role="group" aria-label="Third group">
+    <button type="button" class="btn btn-secondary">8</button>
+  </div>
+</div>
+
+
+		<br>
+		{% endblock %}

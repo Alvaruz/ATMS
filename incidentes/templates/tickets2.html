@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %} Gestión Tickets  {% endblock %}
+
+		{% block header %}
+		<br>
+			<h2>TICKETS</h2>
+		<br>
+		{% endblock %}
+
+
+		{% block content %}
+		<br>
+			<div class="card border-success mb-3" style="max-width: 80rem;">
+			  <div class="card-header" style="background:#3FB618">
+			  	<a href="{% url 'ticket_add' %}" class="btn btn-success">AGREGAR</a></div> <!-- #21FFB8 --> <!-- "http://192.168.5.34:8000/main/tickets/nuevo/" -->
+			  <div class="card-body">
+			    <h4 class="card-title">Generar Ticket Nuevo</h4>
+			    <p class="card-text">Crear ticket con base en eventos y observaciones del centro de control, denuncias y otros.</p>
+			  </div>
+			</div>
+
+			<div class="card border-primary mb-3" style="max-width: 80rem;">
+			  <div class="card-header" style="background:#2780E3">
+			  	<a href="{% url 'ticket_list' %}" class="btn btn-primary">LISTAR</a></div> <!-- "http://192.168.5.34:8000/main/tickets/listar" -->
+			  <div class="card-body">
+			    <h4 class="card-title">Listar Tickets</h4>
+			    <p class="card-text">Ver tickets generados.</p>
+			  </div>
+			</div>
+
+
+			<div class="card border-secondary mb-3" style="max-width: 80rem;">
+			  <div class="card-header" style="background:#373a3c">
+			  	<a href="{% url 'estadisticas' %}" class="btn btn-secondary">INFORMES</a></div>
+			  <div class="card-body">
+			    <h4 class="card-title">Generar Informes</h4>
+			    <p class="card-text">Generar imformes para impresión y/o estadísticas.</p>
+			  </div>
+			</div>
+
+		<br>
+		{% endblock %}
+
+
+
+		{% block footer %}
+		{% endblock %}

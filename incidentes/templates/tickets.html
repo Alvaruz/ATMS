@@ -1,0 +1,118 @@
+<!Doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf8">
+		<title> {% block title %} Tickets  {% endblock %} </title>
+
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'style_tickets.css' %}">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+		<meta name="viewport" content="width=device-width , initial-scale=1.0">
+
+	</head>
+
+	<body>
+
+			<div class="categorias"> 
+				<h1>TICKETS Y EVENTOS</h1>
+					<div class="cen">
+						<div class="categoria">
+							<a href="http://127.0.0.1:8000/main/tickets/nuevo/">
+							<i class="fas fa-plus-circle"></i>
+							<h2>Nuevo</h2>
+							<p>Añadir Ticket</p>
+							</a>
+						</div>
+
+						<div class="categoria">
+							<i class="fas fa-edit"></i>
+							<h2>Modificar Tickets</h2>
+							<p>Editar tickets existentes</p>
+						</div>
+
+						<div class="categoria">
+							<i class="fas fa-list-ol"></i>
+							<h2>Listar Tickets</h2>
+							<p>Ver todos los tickets</p>
+						</div>
+
+						<div class="categoria">
+							<i class="fas fa-chart-line"></i>
+							<h2>Generar Informe</h2>
+							<p>Informe de tickets</p>
+						</div>
+
+					</div>
+			</div>
+
+
+<!-- 			{% if obj_list %}
+			    <div class="container">
+					<div class="list-group">
+						<a href="#" class="list-group-item active">ÚLTIMOS TICKETS</a>
+				      	{% for tk in ticket %}
+				        	<a href="#" class="list-group-item" >{{tk.nombre}} - {{tk.fecha}}</a>
+				        {% endfor %}
+				    </div>
+				</div>
+			{% else %}
+				<h2>No hay Tickets para mostrar</h2>
+			{% endif %} -->
+
+
+
+
+
+
+
+			{% if ticket %}
+				<div class="container">
+					<h4 class="list-group-item active">Ultimos Tickets</h4>
+						<table class="table">
+					   		<thead>
+					      		<tr>
+					        		<th>Nombre</th>
+					        		<th>Categoria</th>
+					        		<th>Remitido a</th>
+					        		<th>Fecha</th>
+					        		<th>Estado</th>
+					      		</tr>
+					    	</thead>
+
+						    <tbody>
+								{% for tk in ticket %}
+									<tr class="active">
+							        	<td>{{tk.nombre}}</td>
+							        	<td>{{tk.categoria}}</td>
+							        	<td>{{tk.grupo_destino}}</td>
+							        	<td>{{tk.fecha}}</td>
+							        	<td>{{tk.estado}}</td>
+					      			</tr>
+								
+									{% if tk.estado == 'Pendiente' %}
+										<tr class="danger">
+								        	<td>{{tk.nombre}}</td>
+								        	<td>{{tk.categoria}}</td>
+								        	<td>{{tk.grupo_destino}}</td>
+								        	<td>{{tk.fecha}}</td>
+								        	<td>{{tk.estado}}</td>				
+					      				</tr>
+				      				{% endif %}
+			      				{% endfor %}
+							</tbody>
+						</table>
+					</div>
+			{% else %}
+				<h2>No hay Tickets para mostrar</h2>
+			{% endif %}
+		<div class="container">
+			<button type="button"><a href="http://127.0.0.1:8000/main/home/">HOME</a></button>
+			<br>
+		</div>
+	</body>
+</html>

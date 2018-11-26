@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<title> {% block title %} Tickets  {% endblock %} </title>
+
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="{% static 'style_tickets.css' %}">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+		<meta name="viewport" content="width=device-width , initial-scale=1.0">
+
+	<title> Gestión de Tickets</title>
+</head>
+<body>
+			<div class="categorias"> 
+				<h1>GENERAR TICKET</h1>
+			</div>
+
+
+{# categoria, nombre, grupo, detalle, equipo, fecha, estado #}
+
+<div class="container">
+
+	<form action="{% url 'ticket_add' %}" method="post" class="form-horizontal"> {# {% url 'tickets' %} #}
+		{% csrf_token %} {# {{ form.as_p }} #}
+				
+		{{ form.as_p }}
+		
+		<br>
+		
+		<button type="submit" class="btn btn-primary">Guardar</button>
+		<button type="button" class="btn"><a href="http://127.0.0.1:8000/main/tickets/">Volver</a></button>
+	</form>
+</div>
+
+{% block footer %}
+<br>
+{% endblock %}
+
+</body>
+</html>
