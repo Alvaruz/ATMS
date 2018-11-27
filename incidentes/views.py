@@ -6,6 +6,10 @@ from django.http import HttpResponse
 from .forms import TicketForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db import connections
+from django.db.models import Count
+from django.http import JsonResponse
+from django.core import serializers
 
 # Create your views here.
 def home(request):
@@ -115,10 +119,80 @@ class TicketDeleteView(DeleteView):
 
 
 
+# def estadisticas(request):
+# 	return render(request, 'estadisticas_prueba.html', {})
 
 
-def estadisticas(request):
-	return render(request, 'estadisticas.html', {})
+
+def apimes(request):
+    data = Ticket.objects.all() \
+        .extra(select={'month': connections[Ticket.objects.db].ops.date_trunc_sql('month', 'fecha')}) \
+        .values('month') \
+        .annotate(count_items=Count('id'))
+    return JsonResponse(list(data), safe=False)
+
+
+def estadisticas(request): 
+    # data = serializers.serialize("json", Ticket.objects.only("categoria").annotate(Count('id')))
+
+    #--CATEGORIA---
+    mantenimiento = Ticket.objects.only("categoria").filter(categoria=1).count()
+    vehiculo_mal_estacionado = Ticket.objects.only("categoria").filter(categoria=2).count()
+    vehiculo_descompuesto = Ticket.objects.only("categoria").filter(categoria=3).count()
+    manifestacion = Ticket.objects.only("categoria").filter(categoria=4).count()
+    cierre_de_calle = Ticket.objects.only("categoria").filter(categoria=5).count()
+    accidente = Ticket.objects.only("categoria").filter(categoria=6).count()
+    obras = Ticket.objects.only("categoria").filter(categoria=7).count()
+    obstaculo = Ticket.objects.only("categoria").filter(categoria=8).count()
+    congestionamiento = Ticket.objects.only("categoria").filter(categoria=9).count()
+
+    #--GRUPO---
+    sistemas = Ticket.objects.only("grupo_destino").filter(grupo_destino=1).count()
+    redes = Ticket.objects.only("grupo_destino").filter(grupo_destino=2).count()
+    pmt_atms = Ticket.objects.only("grupo_destino").filter(grupo_destino=3).count()
+    pmt_otros = Ticket.objects.only("grupo_destino").filter(grupo_destino=4).count()
+    operadores = Ticket.objects.only("grupo_destino").filter(grupo_destino=5).count()
+    tecnicos = Ticket.objects.only("grupo_destino").filter(grupo_destino=6).count()
+    administrativa = Ticket.objects.only("grupo_destino").filter(grupo_destino=7).count()
+    jefatura = Ticket.objects.only("grupo_destino").filter(grupo_destino=8).count()
+
+    #--ESTADO--
+    pendiente = Ticket.objects.only("estado").filter(estado=1).count()
+    cerrado = Ticket.objects.only("estado").filter(estado=2).count()
+    atendido = Ticket.objects.only("estado").filter(estado=3).count()
+    vencido = Ticket.objects.only("estado").filter(estado=4).count()
+
+
+    data = {
+        "mantenimiento": mantenimiento,
+        "vehiculo_mal_estacionado": vehiculo_mal_estacionado,
+        "vehiculo_descompuesto": vehiculo_descompuesto,
+        "manifestacion": manifestacion,
+        "cierre_de_calle": cierre_de_calle,
+        "accidente": accidente,
+        "obras": obras,
+        "obstaculo": obstaculo,
+        "congestionamiento": congestionamiento,
+
+        "pmt_otros": pmt_otros,
+        "sistemas": sistemas,
+        "redes": redes,
+        "pmt_atms": pmt_atms,
+        "operadores": operadores,
+        "tecnicos": tecnicos,
+        "administrativa": administrativa,
+        "jefatura": jefatura,
+
+
+        "pendiente": pendiente,
+        "cerrado": cerrado,
+        "atendido": atendido,
+        "vencido": vencido,
+        }
+
+    return render(request, 'estadisticas_prueba.html', {'data':data})
+
+
 
 
 

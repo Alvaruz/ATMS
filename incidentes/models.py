@@ -67,6 +67,8 @@ class Ticket(models.Model):
 	codigo = models.CharField(max_length=20, null=True, blank=True)
 	imagen = models.ImageField(null=True, blank=True)
 
+	def publicado_reciente(self):
+		return self.fecha >= timezone.now() - datetime.timedelta(days=1)
 
 	def __str__(self):
 		return '%s, %s' %(self.ubicacion, self.grupo_destino)

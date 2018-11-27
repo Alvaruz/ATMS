@@ -1,0 +1,99 @@
+{% load staticfiles %}
+{% load static %}
+
+<html>
+  <head>
+    <link rel="shortcut icon" href="#" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Categoria', 'Cantidad'],
+          ['Mantenimiento', {{data.mantenimiento}}],
+          ['Vehículo mal estacionado', {{data.vehiculo_mal_estacionado}}],
+          ['Vehículo descompuesto', {{data.vehiculo_descompuesto}}],
+          ['Manifestación',  {{data.manifestacion}}],
+          ['Cierre de calle', {{data.cierre_de_calle}}],
+          ['Accidente', {{data.accidente}}],
+          ['Obras', {{data.obras}}],
+          ['Obstáculo', {{data.obstaculo}}],
+          ['Congestionamiento', {{data.congestionamiento}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets por Categoria',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_categoria'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Grupo', 'Cantidad'],
+          ['Sistemas', {{data.sistemas}}],
+          ['Redes', {{data.redes}}],
+          ['PMT ATMS', {{data.pmt_atms}}],
+          ['PMT Otros',  {{data.pmt_otros}}],
+          ['Operadores', {{data.operadores}}],
+          ['Técnicos', {{data.tecnicos}}],
+          ['Administrativa', {{data.administrativa}}],
+          ['Jefatura', {{data.jefatura}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets por Grupo',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_grupo'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Estado', 'Cantidad'],
+          ['Pendiente', {{data.pendiente}}],
+          ['Cerrado', {{data.cerrado}}],
+          ['Atendido', {{data.atendido}}],
+          ['Vencido', {{data.vencido}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets por Estado',
+          is3D: true,
+          colors: ['#ff9900', '#0099C6', '#109618', '#DC3912',]
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_estado'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td><div id="chart_categoria" style="width: 900px; height: 500px;"></div></td>
+        <td><div id="chart_grupo" style="width: 900px; height: 500px;"></div></td>
+      </tr>
+    </table>     
+      
+      <div id="chart_estado" style="width: 900px; height: 500px;"></div>
+
+
+
+      
+  </body>
+</html>
+
