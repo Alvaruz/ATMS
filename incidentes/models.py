@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Equipos(models.Model):
 	nombre = models.CharField(max_length=30)
@@ -58,7 +59,7 @@ class Ticket(models.Model):
 	grupo_destino = models.ForeignKey(Grupo, on_delete=models.CASCADE,null=True, blank=True)
 	detalle = models.TextField()
 	equipo = models.ForeignKey(Equipos, on_delete=models.CASCADE, null=True, blank=True)
-	fecha = models.DateTimeField(null=True, blank=True)
+	fecha = models.DateTimeField(default=timezone.now, null=True, blank=True)
 	estado = models.ForeignKey(Estado, null=True, blank=True, on_delete=models.CASCADE)
 
 	# editado_por = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True, blank=True, related_name='nombre')

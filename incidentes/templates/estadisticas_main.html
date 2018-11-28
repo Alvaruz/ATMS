@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} Estadísticas  {% endblock %}
+
+		{% block header %}
+		<br>
+			<h2>Estadísticas</h2>
+		<br>
+		{% endblock %}
+
+
+		{% block content %}
+		<br>
+		<div class="card border-success mb-3" style="max-width: 20rem;">
+		  <a href="{% url 'estadisticas_dia' %}" class="btn btn-success btn-lg">DIA</a>
+		  <div class="card-body">
+		    <h4 class="card-title"></h4>
+		    <p class="card-text">Informe Diario</p>
+		  </div>
+		</div>
+		
+		<div class="card border-primary mb-3" style="max-width: 20rem;">
+		  <a href="{% url 'estadisticas_mes' %}" class="btn btn-primary btn-lg">MES</a>
+		  <div class="card-body">
+		    <h4 class="card-title"></h4>
+		    <p class="card-text">Informe Mensual</p>
+		  </div>
+		</div>
+
+		<div class="card border-secundary mb-3" style="max-width: 20rem;">
+		  <a href="{% url 'estadisticas_total' %}" class="btn btn-secundary btn-lg" style="background:#373a3c; color: white;">TOTAL</a>
+		  <div class="card-body">
+		    <h4 class="card-title"></h4>
+		    <p class="card-text">Informe Global</p>
+		  </div>
+		</div>		
+
+		<br>
+		{% endblock %}
+
+
+
+		{% block footer %}
+		{% endblock %}

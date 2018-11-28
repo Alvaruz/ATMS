@@ -1,10 +1,20 @@
 {% load staticfiles %}
 {% load static %}
 
-<html>
+<!Doctype html>
+<html lang="es">
   <head>
     <link rel="shortcut icon" href="#" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'normalize.css' %}">
+    <link rel="stylesheet" href="{% static '/themes/cosmo/bootstrap.min.css' %}">
+
+
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
@@ -20,11 +30,15 @@
           ['Obras', {{data.obras}}],
           ['Obstáculo', {{data.obstaculo}}],
           ['Congestionamiento', {{data.congestionamiento}}],
+          ['Sincronización', {{data.sincronizacion}}],
+          ['Semáforo Apagado', {{data.semaforo_apagado}}],
         ]);
 
         var options = {
           title: 'Total Tickets por Categoria',
           is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'}
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_categoria'));
@@ -51,6 +65,8 @@
         var options = {
           title: 'Total Tickets por Grupo',
           is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'}
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_grupo'));
@@ -72,7 +88,7 @@
 
         var options = {
           title: 'Total Tickets por Estado',
-          is3D: true,
+          is3D: false,
           colors: ['#ff9900', '#0099C6', '#109618', '#DC3912',]
         };
 
@@ -81,18 +97,29 @@
       }
     </script>
   </head>
+
   <body>
-    <table>
-      <tr>
-        <td><div id="chart_categoria" style="width: 900px; height: 500px;"></div></td>
-        <td><div id="chart_grupo" style="width: 900px; height: 500px;"></div></td>
-      </tr>
-    </table>     
-      
-      <div id="chart_estado" style="width: 900px; height: 500px;"></div>
+      <div class="container" align="center">
+        <div style="margin: 15px; font-size: 30px; background-color: #484848; color: white">
+          <p>Centro Avanzado de Control de Tráfico</p>
+        </div>
 
 
+        <h2><strong>Estadísticas DIA</strong></h2>
+        <br>
+      </div>
 
+      <div class="container">
+          <table style="padding: 15px; border: 0px solid black;">
+              <tr>
+                <td><div id="chart_categoria" style="width: 550px; height: 400px;"></div></td>
+                <td><div id="chart_grupo" style="width: 550px; height: 400px;"></div></td>
+              </tr>
+              <tr>
+                <td colspan="2" align="center"><div id="chart_estado" style="width: 850px; height: 450px;"></div></td>
+              </tr>
+          </table>     
+      </div>     
       
   </body>
 </html>

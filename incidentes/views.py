@@ -10,6 +10,10 @@ from django.db import connections
 from django.db.models import Count
 from django.http import JsonResponse
 from django.core import serializers
+from datetime import *
+from django.utils import timezone
+from django.utils.timezone import make_aware
+
 
 # Create your views here.
 def home(request):
@@ -119,8 +123,8 @@ class TicketDeleteView(DeleteView):
 
 
 
-# def estadisticas(request):
-# 	return render(request, 'estadisticas_prueba.html', {})
+def estadisticas_main(request):
+	return render(request, 'estadisticas_main.html', {})
 
 
 
@@ -132,7 +136,7 @@ def apimes(request):
     return JsonResponse(list(data), safe=False)
 
 
-def estadisticas(request): 
+def estadisticas_total(request): 
     # data = serializers.serialize("json", Ticket.objects.only("categoria").annotate(Count('id')))
 
     #--CATEGORIA---
@@ -145,6 +149,8 @@ def estadisticas(request):
     obras = Ticket.objects.only("categoria").filter(categoria=7).count()
     obstaculo = Ticket.objects.only("categoria").filter(categoria=8).count()
     congestionamiento = Ticket.objects.only("categoria").filter(categoria=9).count()
+    sincronizacion = Ticket.objects.only("categoria").filter(categoria=10).count()
+    semaforo_apagado = Ticket.objects.only("categoria").filter(categoria=11).count()
 
     #--GRUPO---
     sistemas = Ticket.objects.only("grupo_destino").filter(grupo_destino=1).count()
@@ -173,6 +179,8 @@ def estadisticas(request):
         "obras": obras,
         "obstaculo": obstaculo,
         "congestionamiento": congestionamiento,
+        "sincronizacion": sincronizacion,
+        "semaforo_apagado": semaforo_apagado,
 
         "pmt_otros": pmt_otros,
         "sistemas": sistemas,
@@ -190,7 +198,203 @@ def estadisticas(request):
         "vencido": vencido,
         }
 
-    return render(request, 'estadisticas_prueba.html', {'data':data})
+    return render(request, 'estadisticas_global.html', {'data':data})
+
+
+def estadisticas_mes(request):
+    mes = datetime.now().month
+
+    #--CATEGORIA---
+    mantenimiento = Ticket.objects.filter(fecha__month = mes).filter(categoria=1).count()
+    vehiculo_mal_estacionado = Ticket.objects.filter(fecha__month = mes).filter(categoria=2).count()
+    vehiculo_descompuesto = Ticket.objects.filter(fecha__month = mes).filter(categoria=3).count()
+    manifestacion = Ticket.objects.filter(fecha__month = mes).filter(categoria=4).count()
+    cierre_de_calle = Ticket.objects.filter(fecha__month = mes).filter(categoria=5).count()
+    accidente = Ticket.objects.filter(fecha__month = mes).filter(categoria=6).count()
+    obras = Ticket.objects.filter(fecha__month = mes).filter(categoria=7).count()
+    obstaculo = Ticket.objects.filter(fecha__month = mes).filter(categoria=8).count()
+    congestionamiento = Ticket.objects.filter(fecha__month = mes).filter(categoria=9).count()
+    sincronizacion = Ticket.objects.filter(fecha__month = mes).filter(categoria=10).count()
+    semaforo_apagado = Ticket.objects.filter(fecha__month = mes).filter(categoria=11).count()
+
+
+	#--GRUPO---
+    sistemas = Ticket.objects.filter(fecha__month = mes).filter(grupo_destino=1).count()
+    redes = Ticket.objects.filter(fecha__month = mes).filter(grupo_destino=2).count()
+    pmt_atms = Ticket.objects.filter(fecha__month = mes).filter(grupo_destino=3).count()
+    pmt_otros = Ticket.objects.filter(fecha__month = mes).filter(grupo_destino=4).count()
+    operadores = Ticket.objects.filter(fecha__month = mes).filter(grupo_destino=5).count()
+    tecnicos = Ticket.objects.filter(fecha__month = mes).filter(grupo_destino=6).count()
+    administrativa = Ticket.objects.filter(fecha__month = mes).filter(grupo_destino=7).count()
+    jefatura = Ticket.objects.filter(fecha__month = mes).filter(grupo_destino=8).count()
+
+
+	#--ESTADO---
+    pendiente = Ticket.objects.filter(fecha__month = mes).filter(estado=1).count()
+    cerrado = Ticket.objects.filter(fecha__month = mes).filter(estado=2).count()
+    atendido = Ticket.objects.filter(fecha__month = mes).filter(estado=3).count()
+    vencido = Ticket.objects.filter(fecha__month = mes).filter(estado=4).count()
+
+    data = {
+        "mantenimiento": mantenimiento,
+        "vehiculo_mal_estacionado": vehiculo_mal_estacionado,
+        "vehiculo_descompuesto": vehiculo_descompuesto,
+        "manifestacion": manifestacion,
+        "cierre_de_calle": cierre_de_calle,
+        "accidente": accidente,
+        "obras": obras,
+        "obstaculo": obstaculo,
+        "congestionamiento": congestionamiento,
+        "sincronizacion": sincronizacion,
+        "semaforo_apagado": semaforo_apagado,
+
+        "pmt_otros": pmt_otros,
+        "sistemas": sistemas,
+        "redes": redes,
+        "pmt_atms": pmt_atms,
+        "operadores": operadores,
+        "tecnicos": tecnicos,
+        "administrativa": administrativa,
+        "jefatura": jefatura,
+
+
+        "pendiente": pendiente,
+        "cerrado": cerrado,
+        "atendido": atendido,
+        "vencido": vencido,
+        }
+
+    return render(request, 'estadisticas_mes.html', {'data':data})
+
+
+def estadisticas_dia(request):
+    hoy = datetime.now().day
+
+    #--CATEGORIA---
+    mantenimiento = Ticket.objects.filter(fecha__day=hoy).filter(categoria=1).count()
+    vehiculo_mal_estacionado = Ticket.objects.filter(fecha__day=hoy).filter(categoria=2).count()
+    vehiculo_descompuesto = Ticket.objects.filter(fecha__day=hoy).filter(categoria=3).count()
+    manifestacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=4).count()
+    cierre_de_calle = Ticket.objects.filter(fecha__day=hoy).filter(categoria=5).count()
+    accidente = Ticket.objects.filter(fecha__day=hoy).filter(categoria=6).count()
+    obras = Ticket.objects.filter(fecha__day=hoy).filter(categoria=7).count()
+    obstaculo = Ticket.objects.filter(fecha__day=hoy).filter(categoria=8).count()
+    congestionamiento = Ticket.objects.filter(fecha__day=hoy).filter(categoria=9).count()
+    sincronizacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=10).count()
+    semaforo_apagado = Ticket.objects.filter(fecha__day=hoy).filter(categoria=11).count()
+
+    #--GRUPO---
+    sistemas = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=1).count()
+    redes = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=2).count()
+    pmt_atms = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=3).count()
+    pmt_otros = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=4).count()
+    operadores = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=5).count()
+    tecnicos = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=6).count()
+    administrativa = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=7).count()
+    jefatura = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=8).count()
+
+    #--ESTADO--
+    pendiente = Ticket.objects.filter(fecha__day=hoy).filter(estado=1).count()
+    cerrado = Ticket.objects.filter(fecha__day=hoy).filter(estado=2).count()
+    atendido = Ticket.objects.filter(fecha__day=hoy).filter(estado=3).count()
+    vencido = Ticket.objects.filter(fecha__day=hoy).filter(estado=4).count()
+
+
+    data = {
+        "mantenimiento": mantenimiento,
+        "vehiculo_mal_estacionado": vehiculo_mal_estacionado,
+        "vehiculo_descompuesto": vehiculo_descompuesto,
+        "manifestacion": manifestacion,
+        "cierre_de_calle": cierre_de_calle,
+        "accidente": accidente,
+        "obras": obras,
+        "obstaculo": obstaculo,
+        "congestionamiento": congestionamiento,
+        "sincronizacion": sincronizacion,
+        "semaforo_apagado": semaforo_apagado,
+
+        "pmt_otros": pmt_otros,
+        "sistemas": sistemas,
+        "redes": redes,
+        "pmt_atms": pmt_atms,
+        "operadores": operadores,
+        "tecnicos": tecnicos,
+        "administrativa": administrativa,
+        "jefatura": jefatura,
+
+
+        "pendiente": pendiente,
+        "cerrado": cerrado,
+        "atendido": atendido,
+        "vencido": vencido,
+        }
+
+    return render(request, 'estadisticas_dia.html', {'data':data})
+
+
+def comunicaciones_estadisticas_dia(request):
+    hoy = datetime.now().day
+
+    #--CATEGORIA---
+    mantenimiento = Ticket.objects.filter(fecha__day=hoy).filter(categoria=1).count()
+    vehiculo_mal_estacionado = Ticket.objects.filter(fecha__day=hoy).filter(categoria=2).count()
+    vehiculo_descompuesto = Ticket.objects.filter(fecha__day=hoy).filter(categoria=3).count()
+    manifestacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=4).count()
+    cierre_de_calle = Ticket.objects.filter(fecha__day=hoy).filter(categoria=5).count()
+    accidente = Ticket.objects.filter(fecha__day=hoy).filter(categoria=6).count()
+    obras = Ticket.objects.filter(fecha__day=hoy).filter(categoria=7).count()
+    obstaculo = Ticket.objects.filter(fecha__day=hoy).filter(categoria=8).count()
+    congestionamiento = Ticket.objects.filter(fecha__day=hoy).filter(categoria=9).count()
+    sincronizacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=10).count()
+    semaforo_apagado = Ticket.objects.filter(fecha__day=hoy).filter(categoria=11).count()
+
+    #--GRUPO---
+    sistemas = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=1).count()
+    redes = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=2).count()
+    pmt_atms = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=3).count()
+    pmt_otros = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=4).count()
+    operadores = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=5).count()
+    tecnicos = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=6).count()
+    administrativa = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=7).count()
+    jefatura = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=8).count()
+
+    #--ESTADO--
+    pendiente = Ticket.objects.filter(fecha__day=hoy).filter(estado=1).count()
+    cerrado = Ticket.objects.filter(fecha__day=hoy).filter(estado=2).count()
+    atendido = Ticket.objects.filter(fecha__day=hoy).filter(estado=3).count()
+    vencido = Ticket.objects.filter(fecha__day=hoy).filter(estado=4).count()
+
+
+    data = {
+        "mantenimiento": mantenimiento,
+        "vehiculo_mal_estacionado": vehiculo_mal_estacionado,
+        "vehiculo_descompuesto": vehiculo_descompuesto,
+        "manifestacion": manifestacion,
+        "cierre_de_calle": cierre_de_calle,
+        "accidente": accidente,
+        "obras": obras,
+        "obstaculo": obstaculo,
+        "congestionamiento": congestionamiento,
+        "sincronizacion": sincronizacion,
+        "semaforo_apagado": semaforo_apagado,
+
+        "pmt_otros": pmt_otros,
+        "sistemas": sistemas,
+        "redes": redes,
+        "pmt_atms": pmt_atms,
+        "operadores": operadores,
+        "tecnicos": tecnicos,
+        "administrativa": administrativa,
+        "jefatura": jefatura,
+
+
+        "pendiente": pendiente,
+        "cerrado": cerrado,
+        "atendido": atendido,
+        "vencido": vencido,
+        }
+
+    return render(request, 'comunicaciones_estadisticas_hoy.html', {'data':data})
 
 
 

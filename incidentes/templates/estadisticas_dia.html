@@ -1,0 +1,164 @@
+{% load staticfiles %}
+{% load static %}
+
+<!Doctype html>
+<html lang="es">
+  <head>
+    <link rel="shortcut icon" href="#" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'normalize.css' %}">
+    <link rel="stylesheet" href="{% static '/themes/cosmo/bootstrap.min.css' %}">
+
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Categoria', 'Cantidad'],
+          ['Mantenimiento', {{data.mantenimiento}}],
+          ['Vehículo mal estacionado', {{data.vehiculo_mal_estacionado}}],
+          ['Vehículo descompuesto', {{data.vehiculo_descompuesto}}],
+          ['Manifestación',  {{data.manifestacion}}],
+          ['Cierre de calle', {{data.cierre_de_calle}}],
+          ['Accidente', {{data.accidente}}],
+          ['Obras', {{data.obras}}],
+          ['Obstáculo', {{data.obstaculo}}],
+          ['Congestionamiento', {{data.congestionamiento}}],
+          ['Sincronización', {{data.sincronizacion}}],
+          ['Semáforo Apagado', {{data.semaforo_apagado}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets por Categoria',
+          is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_categoria'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Grupo', 'Cantidad'],
+          ['Sistemas', {{data.sistemas}}],
+          ['Redes', {{data.redes}}],
+          ['PMT ATMS', {{data.pmt_atms}}],
+          ['PMT Otros',  {{data.pmt_otros}}],
+          ['Operadores', {{data.operadores}}],
+          ['Técnicos', {{data.tecnicos}}],
+          ['Administrativa', {{data.administrativa}}],
+          ['Jefatura', {{data.jefatura}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets por Grupo',
+          is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_grupo'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Estado', 'Cantidad'],
+          ['Pendiente', {{data.pendiente}}],
+          ['Cerrado', {{data.cerrado}}],
+          ['Atendido', {{data.atendido}}],
+          ['Vencido', {{data.vencido}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets por Estado',
+          is3D: false,
+          colors: ['#ff9900', '#0099C6', '#109618', '#DC3912',]
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_estado'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="container"> 
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'home' %}">ATMS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor03">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">Index<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ticket_home' %}">Tickets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Equipos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Documentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Actividades</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Personal</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Aportes</a>
+            </li>
+          </ul>
+
+        </div>
+      </nav>
+    </div>
+
+      <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'estadisticas_main' %}">Estadísticas</a></li> <!-- "http://192.168.5.34:8000/main/tickets/" -->
+          <li class="breadcrumb-item active">Estadísticas Dia</li>
+        </ol>
+      </div>
+
+  <div class="container" align="center">
+    <h2>Estadísticas DIA</h2>
+    <br>
+  </div>
+
+  <div class="container">
+      <table style="padding: 15px; border: 0px solid black;">
+        <tr>
+          <td><div id="chart_categoria" style="width: 550px; height: 400px;"></div></td>
+          <td><div id="chart_grupo" style="width: 550px; height: 400px;"></div></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><div id="chart_estado" style="width: 850px; height: 450px;"></div></td>
+        </tr>
+      </table>     
+  </div>     
+      
+  </body>
+</html>
+

@@ -7,11 +7,11 @@ from incidentes.models import *
 
 @admin.register(Equipos) # nombre, descripcion
 class EquipoRegister(admin.ModelAdmin):
-    list_display = ('nombre', 'get_categoria')
+    list_display = ('nombre', 'descripcion')
 
-    def get_categoria(self, obj):
-    	return obj.categoria.descripcion
-    # get_categoria.admin.order_field = 'nombre'
+    # def get_categoria(self, obj):
+    # 	return obj.categoria.descripcion
+    # # get_categoria.admin.order_field = 'nombre'
 
 
 @admin.register(Stock) # nombre, buenos, dañados
