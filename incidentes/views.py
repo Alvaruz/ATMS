@@ -151,6 +151,8 @@ def estadisticas_total(request):
     congestionamiento = Ticket.objects.only("categoria").filter(categoria=9).count()
     sincronizacion = Ticket.objects.only("categoria").filter(categoria=10).count()
     semaforo_apagado = Ticket.objects.only("categoria").filter(categoria=11).count()
+    infracciones = Ticket.objects.only("categoria").filter(categoria=12).count()
+
 
     #--GRUPO---
     sistemas = Ticket.objects.only("grupo_destino").filter(grupo_destino=1).count()
@@ -181,6 +183,7 @@ def estadisticas_total(request):
         "congestionamiento": congestionamiento,
         "sincronizacion": sincronizacion,
         "semaforo_apagado": semaforo_apagado,
+        "infracciones": infracciones,
 
         "pmt_otros": pmt_otros,
         "sistemas": sistemas,
@@ -216,6 +219,7 @@ def estadisticas_mes(request):
     congestionamiento = Ticket.objects.filter(fecha__month = mes).filter(categoria=9).count()
     sincronizacion = Ticket.objects.filter(fecha__month = mes).filter(categoria=10).count()
     semaforo_apagado = Ticket.objects.filter(fecha__month = mes).filter(categoria=11).count()
+    infracciones = Ticket.objects.only("categoria").filter(categoria=12).count()
 
 
 	#--GRUPO---
@@ -247,6 +251,7 @@ def estadisticas_mes(request):
         "congestionamiento": congestionamiento,
         "sincronizacion": sincronizacion,
         "semaforo_apagado": semaforo_apagado,
+        "infracciones": infracciones,
 
         "pmt_otros": pmt_otros,
         "sistemas": sistemas,
@@ -282,6 +287,8 @@ def estadisticas_dia(request):
     congestionamiento = Ticket.objects.filter(fecha__day=hoy).filter(categoria=9).count()
     sincronizacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=10).count()
     semaforo_apagado = Ticket.objects.filter(fecha__day=hoy).filter(categoria=11).count()
+    infracciones = Ticket.objects.only("categoria").filter(categoria=12).count()
+
 
     #--GRUPO---
     sistemas = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=1).count()
@@ -312,6 +319,7 @@ def estadisticas_dia(request):
         "congestionamiento": congestionamiento,
         "sincronizacion": sincronizacion,
         "semaforo_apagado": semaforo_apagado,
+        "infracciones": infracciones,
 
         "pmt_otros": pmt_otros,
         "sistemas": sistemas,
@@ -347,6 +355,8 @@ def comunicaciones_estadisticas_dia(request):
     congestionamiento = Ticket.objects.filter(fecha__day=hoy).filter(categoria=9).count()
     sincronizacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=10).count()
     semaforo_apagado = Ticket.objects.filter(fecha__day=hoy).filter(categoria=11).count()
+    infracciones = Ticket.objects.only("categoria").filter(categoria=12).count()
+
 
     #--GRUPO---
     sistemas = Ticket.objects.filter(fecha__day=hoy).filter(grupo_destino=1).count()
@@ -377,6 +387,7 @@ def comunicaciones_estadisticas_dia(request):
         "congestionamiento": congestionamiento,
         "sincronizacion": sincronizacion,
         "semaforo_apagado": semaforo_apagado,
+        "infracciones": infracciones,
 
         "pmt_otros": pmt_otros,
         "sistemas": sistemas,
