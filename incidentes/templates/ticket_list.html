@@ -25,7 +25,8 @@
 				    <tr>
 				      <th scope="col">Nombre</th>
 				      <th scope="col">Categoria</th>
-				      <th scope="col">Remitido</th>
+				      <th scope="col">Por</th>
+				      <th scope="col">Para</th>
 				      <th scope="col" style="text-align:center;">Fecha</th>
 				      <th scope="col">Estado</th>
 				      <th scope="col" style="text-align:center;">Acciones</th>
@@ -39,13 +40,14 @@
 								<tr class="table-default">
 							      <td><p class="text-warning">{{tk.ubicacion}}</p></td>
 							      <td><p class="text-warning">{{tk.categoria}}</p></td>
+							      <td><p class="text-warning">{{tk.usuario}}</p></td>
 							      <td><p class="text-warning">{{tk.grupo_destino}}</p></td>
 							      <td><p class="text-warning">{{tk.fecha}}</p></td>
 							      <td><p class="text-warning"><strong>{{tk.estado}}</strong></p></td>
 							      <td>
 									<div class="btn-group">
 									    <a class="btn btn-secondary" href="{% url 'ticket_edit' tk.id %}">Editar</a>
-									   	<a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
+									   	{# <a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a> #}
 									</div>
 							    </tr>
 								{% else %}
@@ -55,13 +57,14 @@
 										<tr class="table-default">
 									      <td><p class="text-danger">{{tk.ubicacion}}</p></td>
 									      <td><p class="text-danger">{{tk.categoria}}</p></td>
+									      <td><p class="text-danger">{{tk.usuario}}</p></td>
 									      <td><p class="text-danger">{{tk.grupo_destino}}</p></td>
 									      <td><p class="text-danger">{{tk.fecha}}</p></td>
 									      <td><p class="text-danger"><strong>{{tk.estado}}</strong></p></td>
 									      <td>
 											<div class="btn-group">
 											    <a class="btn btn-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
-											   	<a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
+											   	{# <a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a> #}
 											</div>
 								    	</tr>
 										{% else %}
@@ -71,13 +74,14 @@
 															<tr class="table-default">
 														      <td><p class="text-success">{{tk.ubicacion}}</p></td>
 														      <td><p class="text-success">{{tk.categoria}}</p></td>
+														      <td><p class="text-success">{{tk.usuario}}</p></td>
 														      <td><p class="text-success">{{tk.grupo_destino}}</p></td>
 														      <td><p class="text-success">{{tk.fecha}}</p></td>
 														      <td><p class="text-success"><strong>{{tk.estado}}</strong></p></td>
 														      <td>
 																<div class="btn-group">
 																    <a class="btn btn-outline-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
-																   	<a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
+																   	{# <a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a> #}
 																</div>
 														    </tr>
 														{% else %}
@@ -87,13 +91,14 @@
 																	<tr class="table-default">
 																      <td><p class="text-primary">{{tk.ubicacion}}</p></td>
 																      <td><p class="text-primary">{{tk.categoria}}</p></td>
+																      <td><p class="text-primary">{{tk.usuario}}</p></td>
 																      <td><p class="text-primary">{{tk.grupo_destino}}</p></td>
 																      <td><p class="text-primary">{{tk.fecha}}</p></td>
 																      <td><p class="text-primary"><strong>{{tk.estado}}</strong></p></td>
 																      <td>
 																		<div class="btn-group">
 																		    <a class="btn btn-outline-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
-																		   	<a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
+																		   	{# <a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a> #}
 																		</div>
 																    </tr>
 																{% endif %}
