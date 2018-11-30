@@ -152,6 +152,7 @@ def estadisticas_total(request):
     sincronizacion = Ticket.objects.only("categoria").filter(categoria=10).count()
     semaforo_apagado = Ticket.objects.only("categoria").filter(categoria=11).count()
     infracciones = Ticket.objects.only("categoria").filter(categoria=12).count()
+    led_foco = Ticket.objects.only("categoria").filter(categoria=13).count()
 
 
     #--GRUPO---
@@ -184,6 +185,7 @@ def estadisticas_total(request):
         "sincronizacion": sincronizacion,
         "semaforo_apagado": semaforo_apagado,
         "infracciones": infracciones,
+        "led_foco": led_foco,
 
         "pmt_otros": pmt_otros,
         "sistemas": sistemas,
@@ -220,7 +222,7 @@ def estadisticas_mes(request):
     sincronizacion = Ticket.objects.filter(fecha__month = mes).filter(categoria=10).count()
     semaforo_apagado = Ticket.objects.filter(fecha__month = mes).filter(categoria=11).count()
     infracciones = Ticket.objects.only("categoria").filter(categoria=12).count()
-
+    led_foco = Ticket.objects.only("categoria").filter(categoria=13).count()
 
 	#--GRUPO---
     sistemas = Ticket.objects.filter(fecha__month = mes).filter(grupo_destino=1).count()
@@ -252,6 +254,7 @@ def estadisticas_mes(request):
         "sincronizacion": sincronizacion,
         "semaforo_apagado": semaforo_apagado,
         "infracciones": infracciones,
+        "led_foco": led_foco,
 
         "pmt_otros": pmt_otros,
         "sistemas": sistemas,
@@ -288,6 +291,7 @@ def estadisticas_dia(request):
     sincronizacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=10).count()
     semaforo_apagado = Ticket.objects.filter(fecha__day=hoy).filter(categoria=11).count()
     infracciones = Ticket.objects.only("categoria").filter(categoria=12).count()
+    led_foco = Ticket.objects.only("categoria").filter(categoria=13).count()
 
 
     #--GRUPO---
@@ -320,6 +324,7 @@ def estadisticas_dia(request):
         "sincronizacion": sincronizacion,
         "semaforo_apagado": semaforo_apagado,
         "infracciones": infracciones,
+        "led_foco": led_foco,
 
         "pmt_otros": pmt_otros,
         "sistemas": sistemas,
@@ -356,6 +361,7 @@ def comunicaciones_estadisticas_dia(request):
     sincronizacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=10).count()
     semaforo_apagado = Ticket.objects.filter(fecha__day=hoy).filter(categoria=11).count()
     infracciones = Ticket.objects.only("categoria").filter(categoria=12).count()
+    led_foco = Ticket.objects.only("categoria").filter(categoria=13).count()
 
 
     #--GRUPO---
@@ -388,6 +394,7 @@ def comunicaciones_estadisticas_dia(request):
         "sincronizacion": sincronizacion,
         "semaforo_apagado": semaforo_apagado,
         "infracciones": infracciones,
+        "led_foco": led_foco,
 
         "pmt_otros": pmt_otros,
         "sistemas": sistemas,
