@@ -41,7 +41,7 @@ class EstadoRegister(admin.ModelAdmin):
 
 @admin.register(Ticket) # categoria, nombre, usuario, grupo_destino, detalle, equipo, fecha, estado
 class TicketRegister(admin.ModelAdmin):
-    list_display = ('categoria', 'ubicacion', 'grupo_destino', 'estado')
+    list_display = ('categoria', 'ubicacion', 'grupo_destino', 'fecha', 'estado')
 
 
 
