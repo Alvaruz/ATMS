@@ -10,6 +10,12 @@
 
 
 		{% block content %}
+		<ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="{% url 'ticket_home' %}">Tickets</a></li>
+		  <li class="breadcrumb-item active">Principal</li>
+		</ol>
+
+
 		<br>
 		<div class="card border-success mb-3" style="max-width: 20rem;">
 		  <a href="{% url 'estadisticas_dia' %}" class="btn btn-success btn-lg">DIA</a>
