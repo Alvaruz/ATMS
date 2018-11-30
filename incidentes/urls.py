@@ -19,5 +19,6 @@ urlpatterns = [
     path('tickets/estadisticas_total/', views.estadisticas_total, name='estadisticas_total'),
     path('comunicaciones/estadisticas_dia/', views.comunicaciones_estadisticas_dia, name='comunicaciones_estadisticas_dia'),
     path('comunicaciones/estadisticas_mes/', views.comunicaciones_estadisticas_mes, name='comunicaciones_estadisticas_mes'),
+    path('prensa/estadisticas_mes/', views.prensa_estadisticas_mes, name='prensa_estadisticas_mes'),
     # path('tickets/api/estadisticas',views.apimes, name="apimes"),
 ]
