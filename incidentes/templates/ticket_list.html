@@ -52,7 +52,7 @@
 							      <td>
 									<div class="btn-group">
 									    <a class="btn btn-secondary" href="{% url 'ticket_edit' tk.id %}">Editar</a>
-									   	{# <a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a> #}
+									   	<a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
 									</div>
 							    </tr>
 								{% else %}
@@ -69,7 +69,7 @@
 									      <td>
 											<div class="btn-group">
 											    <a class="btn btn-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
-											   	{# <a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a> #}
+											   	<a class="btn btn-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
 											</div>
 								    	</tr>
 										{% else %}
@@ -86,7 +86,7 @@
 														      <td>
 																<div class="btn-group">
 																    <a class="btn btn-outline-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
-																   	{# <a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a> #}
+																   	<a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
 																</div>
 														    </tr>
 														{% else %}
@@ -103,7 +103,7 @@
 																      <td>
 																		<div class="btn-group">
 																		    <a class="btn btn-outline-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
-																		   	{# <a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a> #}
+																		   	<a class="btn btn-outline-danger" href="{% url 'ticket_delete' tk.id %}">Borrar</a>
 																		</div>
 																    </tr>
 																{% endif %}
