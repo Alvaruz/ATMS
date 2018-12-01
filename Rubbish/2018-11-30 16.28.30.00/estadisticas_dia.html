@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="{% static 'normalize.css' %}">
     <link rel="stylesheet" href="{% static '/themes/cosmo/bootstrap.min.css' %}">
 
-<!--     <script type="text/javascript" src="{% static 'loader.js' %}"></script>
- -->    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
@@ -101,64 +101,65 @@
   </head>
 
   <body>
-      <div class="container" align="center">
-        <div style="margin: 15px; font-size: 30px; background-color: #252728; color: white">
-          <p>Centro Avanzado de Control de Tráfico</p>
+    <div class="container"> 
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'home' %}">ATMS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor03">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">Index<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ticket_home' %}">Tickets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Equipos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Documentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Actividades</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Personal</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Aportes</a>
+            </li>
+          </ul>
+
         </div>
-
-    <table style="width:90%; border: 0px solid black;" align="center">
-      <tr>
-        <td align="CENTER"><h2><strong>ESTADÍSTICAS</strong></h2></td>
-      </tr>
-      <tr>  
-        <td align="center"><a href="{% url 'comunicaciones_estadisticas_dia' %}" class="btn btn-outline-secondary btn-sm" style="width: 150px; height: 45px; font-size: 150%">DIA</a>
-        <a href="{% url 'comunicaciones_estadisticas_mes' %}" class="btn btn-secondary btn-sm" style="width: 150px; height: 45px; font-size: 150%">MES</a></td>
-      </tr>
-    </table>
-
-        <br>
-      </div>
+      </nav>
+    </div>
 
       <div class="container">
-          <table style="padding: 15px; border: 0px solid black;">
-              <tr>
-                <td>
-                  {% if data.categoria %}
-                    <div id="chart_categoria" style="width: 550px; height: 400px;"></div>
-                  {% else %}
-                    <br>
-                    <br>
-                    <h3><strong>Categoría</strong></h3>
-                    <h4>No hay información para mostrar</h4>
-                  {% endif %}
-                </td>
-              
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'estadisticas_main' %}">Estadísticas</a></li> <!-- "http://192.168.5.34:8000/main/tickets/" -->
+          <li class="breadcrumb-item active">Estadísticas Dia</li>
+        </ol>
+      </div>
 
-                <td>
-                  {% if data.grupo %}
-                  <div id="chart_grupo" style="width: 550px; height: 400px;"></div>
-                  {% else %}
-                    <br>
-                    <br>
-                    <h3><strong>Grupo</strong></h3>
-                    <h4>No hay información para mostrar</h4>
-                  {% endif %}
-                </td>
-              </tr>
+  <div class="container" align="center">
+    <h2>Estadísticas DIA</h2>
+    <br>
+  </div>
 
-              <tr>
-                {% if data.estado%}
-                    <td colspan="2" align="center"><div id="chart_estado" style="width: 850px; height: 450px;"></div></td>
-                {% else %}
-                    <br>
-                    <br>
-                    <h3><strong>Estado</strong></h3>
-                    <h4>No hay información para mostrar</h4>
-                {% endif %}
-              </tr>
-
-          </table>     
-      </div>       
+  <div class="container">
+      <table style="padding: 15px; border: 0px solid black;">
+        <tr>
+          <td><div id="chart_categoria" style="width: 550px; height: 400px;"></div></td>
+          <td><div id="chart_grupo" style="width: 550px; height: 400px;"></div></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><div id="chart_estado" style="width: 850px; height: 450px;"></div></td>
+        </tr>
+      </table>     
+  </div>     
       
   </body>
 </html>

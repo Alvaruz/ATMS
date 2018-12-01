@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="{% static 'normalize.css' %}">
     <link rel="stylesheet" href="{% static '/themes/cosmo/bootstrap.min.css' %}">
 
-<!--     <script type="text/javascript" src="{% static 'loader.js' %}"></script>
- -->    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- <script type="text/javascript" src="{% static 'loader.js' %}"></script> -->
 
 
     <script type="text/javascript">
@@ -21,7 +21,6 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Categoria', 'Cantidad'],
-          ['Mantenimiento', {{data.mantenimiento}}],
           ['Vehículo mal estacionado', {{data.vehiculo_mal_estacionado}}],
           ['Vehículo descompuesto', {{data.vehiculo_descompuesto}}],
           ['Manifestación',  {{data.manifestacion}}],
@@ -30,10 +29,6 @@
           ['Obras', {{data.obras}}],
           ['Obstáculo', {{data.obstaculo}}],
           ['Congestionamiento', {{data.congestionamiento}}],
-          ['Sincronización', {{data.sincronizacion}}],
-          ['Semáforo Apagado', {{data.semaforo_apagado}}],
-          ['Infracciones Otros', {{data.infracciones}}],
-          ['Led-Foco Quemado', {{data.led_foco}}],
         ]);
 
         var options = {
@@ -106,15 +101,7 @@
           <p>Centro Avanzado de Control de Tráfico</p>
         </div>
 
-    <table style="width:90%; border: 0px solid black;" align="center">
-      <tr>
-        <td align="CENTER"><h2><strong>ESTADÍSTICAS</strong></h2></td>
-      </tr>
-      <tr>  
-        <td align="center"><a href="{% url 'comunicaciones_estadisticas_dia' %}" class="btn btn-outline-secondary btn-sm" style="width: 150px; height: 45px; font-size: 150%">DIA</a>
-        <a href="{% url 'comunicaciones_estadisticas_mes' %}" class="btn btn-secondary btn-sm" style="width: 150px; height: 45px; font-size: 150%">MES</a></td>
-      </tr>
-    </table>
+        <td align="CENTER"><h2><strong>ESTADÍSTICAS MENSUALES</strong></h2></td>
 
         <br>
       </div>
