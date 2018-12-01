@@ -78,6 +78,30 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
+          ['Funcionario', 'Cantidad'],
+          ['ATMS (no definido)', {{data.atms}}],
+          ['Jose Cassanello', {{data.jose}}],
+          ['Emilio Yegros', {{data.emilio}}],
+          ['Gustavo González', {{data.gustavo}}],
+          ['Elias Martínez', {{data.elias}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets por Funcionario',
+          is3D: false,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_funcionario'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
           ['Estado', 'Cantidad'],
           ['Pendiente', {{data.pendiente}}],
           ['Cerrado', {{data.cerrado}}],
@@ -95,6 +119,8 @@
         chart.draw(data, options);
       }
     </script>
+
+
   </head>
 
   <body>
@@ -154,7 +180,8 @@
           <td><div id="chart_grupo" style="width: 550px; height: 400px;"></div></td>
         </tr>
         <tr>
-          <td colspan="2" align="center"><div id="chart_estado" style="width: 850px; height: 450px;"></div></td>
+          <td><div id="chart_estado" style="width: 550px; height: 400px;"></div></td>
+          <td><div id="chart_funcionario" style="width: 550px; height: 400px;"></div></td>
         </tr>
       </table>     
   </div>     

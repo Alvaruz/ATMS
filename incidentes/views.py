@@ -171,6 +171,15 @@ def estadisticas_total(request):
     atendido = Ticket.objects.only("estado").filter(estado=3).count()
     vencido = Ticket.objects.only("estado").filter(estado=4).count()
 
+    #--USUARIOS--
+    atms = Ticket.objects.filter(usuario=1).count()
+    jose = Ticket.objects.filter(usuario=2).count()
+    emilio = Ticket.objects.filter(usuario=3).count()
+    gustavo = Ticket.objects.filter(usuario=4).count()
+    elias = Ticket.objects.filter(usuario=25).count()
+
+    usuario = atms + jose + emilio + gustavo + elias
+
 
     data = {
         "mantenimiento": mantenimiento,
@@ -196,11 +205,19 @@ def estadisticas_total(request):
         "administrativa": administrativa,
         "jefatura": jefatura,
 
-
         "pendiente": pendiente,
         "cerrado": cerrado,
         "atendido": atendido,
         "vencido": vencido,
+
+        "atms": atms,
+        "jose": jose,
+        "emilio": emilio,
+        "gustavo": gustavo,
+        "elias": elias,
+
+        "usuario": usuario,
+
         }
 
     return render(request, 'estadisticas_global.html', {'data':data})
@@ -210,6 +227,7 @@ def estadisticas_total(request):
 def estadisticas_mes(request):
     hoy = datetime.now().day
     mes = datetime.now().month
+    # mes = 11
 
     #--CATEGORIA---
     mantenimiento = Ticket.objects.filter(fecha__month = mes).filter(categoria=1).count()
@@ -242,6 +260,15 @@ def estadisticas_mes(request):
     cerrado = Ticket.objects.filter(fecha__month = mes).filter(estado=2).count()
     atendido = Ticket.objects.filter(fecha__month = mes).filter(estado=3).count()
     vencido = Ticket.objects.filter(fecha__month = mes).filter(estado=4).count()
+
+    #--USUARIOS--
+    atms = Ticket.objects.filter(fecha__month = mes).filter(usuario=1).count()
+    jose = Ticket.objects.filter(fecha__month = mes).filter(usuario=2).count()
+    emilio = Ticket.objects.filter(fecha__month = mes).filter(usuario=3).count()
+    gustavo = Ticket.objects.filter(fecha__month = mes).filter(usuario=4).count()
+    elias = Ticket.objects.filter(fecha__month = mes).filter(usuario=25).count()
+
+    usuario = atms + jose + emilio + gustavo + elias
 
     categoria = mantenimiento + vehiculo_mal_estacionado + vehiculo_descompuesto + manifestacion + cierre_de_calle + accidente + obras + obstaculo + congestionamiento + sincronizacion + semaforo_apagado + infracciones + led_foco
     grupo = sistemas + redes + pmt_atms + pmt_otros + operadores + tecnicos + administrativa + jefatura
@@ -283,6 +310,14 @@ def estadisticas_mes(request):
         "categoria": categoria,
         "grupo": grupo,
         "estado": estado,
+
+        "atms": atms,
+        "jose": jose,
+        "emilio": emilio,
+        "gustavo": gustavo,
+        "elias": elias,
+
+        "usuario": usuario,
         }
 
     return render(request, 'estadisticas_mes.html', {'data':data})
@@ -324,6 +359,15 @@ def estadisticas_dia(request):
     atendido = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(estado=3).count()
     vencido = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(estado=4).count()
 
+    #--USUARIOS--
+    atms = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=1).count()
+    jose = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=2).count()
+    emilio = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=3).count()
+    gustavo = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=4).count()
+    elias = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=25).count()
+
+    usuario = atms + jose + emilio + gustavo + elias
+
     categoria = mantenimiento + vehiculo_mal_estacionado + vehiculo_descompuesto + manifestacion + cierre_de_calle + accidente + obras + obstaculo + congestionamiento + sincronizacion + semaforo_apagado + infracciones + led_foco
     grupo = sistemas + redes + pmt_atms + pmt_otros + operadores + tecnicos + administrativa + jefatura
     estado = pendiente + cerrado + atendido + vencido
@@ -364,6 +408,13 @@ def estadisticas_dia(request):
         "grupo": grupo,
         "estado": estado,
 
+        "atms": atms,
+        "jose": jose,
+        "emilio": emilio,
+        "gustavo": gustavo,
+        "elias": elias,
+
+        "usuario": usuario,
         }
 
     return render(request, 'estadisticas_dia.html', {'data':data})
