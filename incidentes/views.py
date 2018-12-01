@@ -728,6 +728,69 @@ def prensa_estadisticas_dia(request):
     return render(request, 'prensa_estadisticas_hoy.html', {'data':data})
 
 
+def global_versus(request):
+	#-- Tickets total por Grupo destino --
+    pmt_atms_total = Ticket.objects.filter(grupo_destino=3).count()
+    pmt_otros_total = Ticket.objects.filter(grupo_destino=4).count()
+
+    #-- Tickets total vencidos por grupo destino --
+    pmt_atms_vencidos = Ticket.objects.filter(grupo_destino=3, estado=4).count()
+    pmt_otros_vencidos = Ticket.objects.filter(grupo_destino=4, estado=4).count()
+
+    #-- Tickets total tipos por pmt_atms --
+    pmt_atms_vehiculo_mal_estacionado = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=2).count()
+    pmt_atms_vehiculo_descompuesto = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=3).count()
+    pmt_atms_manifestacion = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=4).count()
+    pmt_atms_cierre_de_calle = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=5).count()
+    pmt_atms_accidente = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=6).count()
+    pmt_atms_obras = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=7).count()
+    pmt_atms_obstaculo = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=8).count()
+    pmt_atms_congestionamiento = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=9).count()
+    pmt_atms_infracciones_varias = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=12).count()
+
+    #-- Tickets total tipos por pmt_otros --
+    pmt_otros_vehiculo_mal_estacionado = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=2).count()
+    pmt_otros_vehiculo_descompuesto = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=3).count()
+    pmt_otros_manifestacion = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=4).count()
+    pmt_otros_cierre_de_calle = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=5).count()
+    pmt_otros_accidente = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=6).count()
+    pmt_otros_obras = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=7).count()
+    pmt_otros_obstaculo = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=8).count()
+    pmt_otros_congestionamiento = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=9).count()
+    pmt_otros_infracciones_varias = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=12).count()
+
+
+    data = {
+    "pmt_atms_total": pmt_atms_total,
+    "pmt_otros_total": pmt_otros_total,
+
+    "pmt_atms_vencidos": pmt_atms_vencidos,
+    "pmt_otros_vencidos": pmt_otros_vencidos,
+
+    "pmt_atms_vehiculo_mal_estacionado": pmt_atms_vehiculo_mal_estacionado,
+    "pmt_atms_vehiculo_descompuesto": pmt_atms_vehiculo_descompuesto,
+	"pmt_atms_manifestacion": pmt_atms_manifestacion,
+	"pmt_atms_cierre_de_calle": pmt_atms_cierre_de_calle,
+	"pmt_atms_accidente": pmt_atms_accidente,
+	"pmt_atms_obras": pmt_atms_obras,
+	"pmt_atms_obstaculo": pmt_atms_obstaculo,
+	"pmt_atms_congestionamiento": pmt_atms_congestionamiento,
+	"pmt_atms_infracciones_varias": pmt_atms_infracciones_varias,
+
+	"pmt_otros_vehiculo_mal_estacionado": pmt_otros_vehiculo_mal_estacionado,
+    "pmt_otros_vehiculo_descompuesto": pmt_otros_vehiculo_descompuesto,
+	"pmt_otros_manifestacion": pmt_otros_manifestacion,
+	"pmt_otros_cierre_de_calle": pmt_otros_cierre_de_calle,
+	"pmt_otros_accidente": pmt_otros_accidente,
+	"pmt_otros_obras": pmt_otros_obras,
+	"pmt_otros_obstaculo": pmt_otros_obstaculo,
+	"pmt_otros_congestionamiento": pmt_otros_congestionamiento,
+	"pmt_otros_infracciones_varias": pmt_otros_infracciones_varias,
+
+    }
+
+    return render(request, 'global_versus.html', {'data':data})
+
 
 # Mcal. López
 mcal_lopez = Ticket.objects.filter(ubicacion__contains='cal')
