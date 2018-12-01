@@ -422,8 +422,8 @@ def estadisticas_dia(request):
 
 def comunicaciones_estadisticas_mes(request):
     hoy = datetime.now().day
-    mes = datetime.now().month
-    # mes = 11
+    # mes = datetime.now().month
+    mes = 11
 
     #--CATEGORIA---
     mantenimiento = Ticket.objects.filter(fecha__month = mes).filter(categoria=1).count()
