@@ -149,17 +149,46 @@
     <br>
   </div>
 
-  <div class="container">
-      <table style="padding: 15px; border: 0px solid black;">
-        <tr>
-          <td><div id="chart_categoria" style="width: 550px; height: 400px;"></div></td>
-          <td><div id="chart_grupo" style="width: 550px; height: 400px;"></div></td>
-        </tr>
-        <tr>
-          <td colspan="2" align="center"><div id="chart_estado" style="width: 850px; height: 450px;"></div></td>
-        </tr>
-      </table>     
-  </div>     
+      <div class="container">
+          <table style="padding: 15px; border: 0px solid black;">
+              <tr>
+                <td>
+                  {% if data.categoria %}
+                    <div id="chart_categoria" style="width: 550px; height: 400px;"></div>
+                  {% else %}
+                    <br>
+                    <br>
+                    <h3><strong>Categoría</strong></h3>
+                    <h4>No hay información para mostrar</h4>
+                  {% endif %}
+                </td>
+              
+
+                <td>
+                  {% if data.grupo %}
+                  <div id="chart_grupo" style="width: 550px; height: 400px;"></div>
+                  {% else %}
+                    <br>
+                    <br>
+                    <h3><strong>Grupo</strong></h3>
+                    <h4>No hay información para mostrar</h4>
+                  {% endif %}
+                </td>
+              </tr>
+
+              <tr>
+                {% if data.estado%}
+                    <td colspan="2" align="center"><div id="chart_estado" style="width: 850px; height: 450px;"></div></td>
+                {% else %}
+                    <br>
+                    <br>
+                    <h3><strong>Estado</strong></h3>
+                    <h4>No hay información para mostrar</h4>
+                {% endif %}
+              </tr>
+
+          </table>     
+      </div>       
       
   </body>
 </html>
