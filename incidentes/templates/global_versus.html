@@ -1,0 +1,188 @@
+{% load staticfiles %}
+{% load static %}
+
+<!Doctype html>
+<html lang="es">
+  <head>
+    <link rel="shortcut icon" href="#" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.min.css">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Grupo', 'Cantidad'],
+          ['PMT ATMS', {{data.pmt_atms_total}}],
+          ['PMT Otros', {{data.pmt_otros_total}}],
+
+        ]);
+
+        var options = {
+          title: 'Total Tickets por Grupo Destino',
+          is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'},
+          colors: ["#66AA00", "#DC3912",],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_grupo'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Grupo', 'Cantidad'],
+          ['PMT ATMS', {{data.pmt_atms_vencidos}}],
+          ['PMT Otros', {{data.pmt_otros_vencidos}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets Vencidos por Grupo',
+          is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'},
+          colors: ["#66AA00", "#DC3912",],
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_vencidos'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Categoria', 'Cantidad'],
+          ['Vehículo mal estacionado', {{data.pmt_atms_vehiculo_mal_estacionado}}],
+          ['Vehículo descompuesto', {{data.pmt_atms_vehiculo_descompuesto}}],
+          ['Manifestación',  {{data.pmt_atms_manifestacion}}],
+          ['Cierre de calle', {{data.pmt_atms_cierre_de_calle}}],
+          ['Accidente', {{data.pmt_atms_accidente}}],
+          ['Obras', {{data.pmt_atms_obras}}],
+          ['Obstáculo', {{data.pmt_atms_obstaculo}}],
+          ['Congestionamiento', {{data.pmt_atms_congestionamiento}}],
+          ['Infracciones Varias', {{data.pmt_atms_infracciones_varias}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets Vencidos PMT ATMS',
+          is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_vencidos_atms'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Categoria', 'Cantidad'],
+          ['Vehículo mal estacionado', {{data.pmt_otros_vehiculo_mal_estacionado}}],
+          ['Vehículo descompuesto', {{data.pmt_otros_vehiculo_descompuesto}}],
+          ['Manifestación',  {{data.pmt_otros_manifestacion}}],
+          ['Cierre de calle', {{data.pmt_otros_cierre_de_calle}}],
+          ['Accidente', {{data.pmt_otros_accidente}}],
+          ['Obras', {{data.pmt_otros_obras}}],
+          ['Obstáculo', {{data.pmt_otros_obstaculo}}],
+          ['Congestionamiento', {{data.pmt_otros_congestionamiento}}],
+          ['Infracciones Varias', {{data.pmt_otros_infracciones_varias}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets Vencidos PMT Otros',
+          is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_vencidos_otros'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+  </head>
+
+  <body>
+    <div class="container"> 
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'home' %}">ATMS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor03">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'home' %}">Index<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'ticket_home' %}">Tickets</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Equipos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Documentos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Actividades</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Personal</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Aportes</a>
+            </li>
+          </ul>
+
+        </div>
+      </nav>
+    </div>
+
+      <div class="container">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'estadisticas_main' %}">Estadísticas</a></li> <!-- "http://192.168.5.34:8000/main/tickets/" -->
+          <li class="breadcrumb-item active">Estadísticas Versus</li>
+        </ol>
+      </div>
+
+    
+  <div class="container" align="center">
+    <h2>Estadísticas PMT Atms vs PMT Otros</h2>
+    <br>
+  </div>
+
+  <div class="container">
+      <table style="padding: 15px; border: 0px solid black;">
+        <tr>
+          <td><div id="chart_grupo" style="width: 550px; height: 400px;"></div></td>
+          <td><div id="chart_vencidos" style="width: 550px; height: 400px;"></div></td>
+        </tr>
+        <tr>
+          <td><div id="chart_vencidos_atms" style="width: 550px; height: 400px;"></div></td>
+          <td><div id="chart_vencidos_otros" style="width: 550px; height: 400px;"></div></td>
+        </tr>
+      </table>     
+  </div>     
+      
+  </body>
+</html>
+
