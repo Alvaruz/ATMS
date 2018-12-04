@@ -77,12 +77,12 @@
 														<!-- ATENDIDOS success-->
 														{% if tk.estado.nombre == 'Atendido' %}
 															<tr class="table-default">
-														      <td><p class="text-success">{{tk.ubicacion}}</p></td>
-														      <td><p class="text-success">{{tk.categoria}}</p></td>
-														      <td><p class="text-success">{{tk.usuario}}</p></td>
-														      <td><p class="text-success">{{tk.grupo_destino}}</p></td>
-														      <td><p class="text-success">{{tk.fecha}}</p></td>
-														      <td><p class="text-success"><strong>{{tk.estado}}</strong></p></td>
+														      <td><p class="text-primary">{{tk.ubicacion}}</p></td>
+														      <td><p class="text-primary">{{tk.categoria}}</p></td>
+														      <td><p class="text-primary">{{tk.usuario}}</p></td>
+														      <td><p class="text-primary">{{tk.grupo_destino}}</p></td>
+														      <td><p class="text-primary">{{tk.fecha}}</p></td>
+														      <td><p class="text-primary"><strong>{{tk.estado}}</strong></p></td>
 														      <td>
 																<div class="btn-group">
 																    <a class="btn btn-outline-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>
@@ -94,12 +94,12 @@
 																<!-- CERRADOS neutral-->
 																{% if tk.estado.nombre == 'Cerrado' %}
 																	<tr class="table-default">
-																      <td><p class="text-primary">{{tk.ubicacion}}</p></td>
-																      <td><p class="text-primary">{{tk.categoria}}</p></td>
-																      <td><p class="text-primary">{{tk.usuario}}</p></td>
-																      <td><p class="text-primary">{{tk.grupo_destino}}</p></td>
-																      <td><p class="text-primary">{{tk.fecha}}</p></td>
-																      <td><p class="text-primary"><strong>{{tk.estado}}</strong></p></td>
+																      <td><p class="text-success">{{tk.ubicacion}}</p></td>
+																      <td><p class="text-success">{{tk.categoria}}</p></td>
+																      <td><p class="text-success">{{tk.usuario}}</p></td>
+																      <td><p class="text-success">{{tk.grupo_destino}}</p></td>
+																      <td><p class="text-success">{{tk.fecha}}</p></td>
+																      <td><p class="text-success"><strong>{{tk.estado}}</strong></p></td>
 																      <td>
 																		<div class="btn-group">
 																		    <a class="btn btn-outline-secondary" href="{% url 'ticket_edit'  tk.id %}">Editar</a>

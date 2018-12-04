@@ -16,55 +16,18 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Categoria', 'Cantidad'],
-          ['Mantenimiento', {{data.mantenimiento}}],
-          ['Vehículo mal estacionado', {{data.vehiculo_mal_estacionado}}],
-          ['Vehículo descompuesto', {{data.vehiculo_descompuesto}}],
-          ['Manifestación',  {{data.manifestacion}}],
-          ['Cierre de calle', {{data.cierre_de_calle}}],
-          ['Accidente', {{data.accidente}}],
-          ['Obras', {{data.obras}}],
-          ['Obstáculo', {{data.obstaculo}}],
-          ['Congestionamiento', {{data.congestionamiento}}],
-          ['Sincronización', {{data.sincronizacion}}],
-          ['Semáforo Apagado', {{data.semaforo_apagado}}],
-          ['Infracciones Otros', {{data.infracciones}}],
-          ['Led-Foco Quemado', {{data.led_foco}}],
-        ]);
-
-        var options = {
-          title: 'Total Tickets por Categoria',
-          is3D: true,
-          fontSize: 15,
-          chartArea: {'width': '80%', 'height': '80%'}
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart_categoria'));
-        chart.draw(data, options);
-      }
-    </script>
-
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
           ['Grupo', 'Cantidad'],
-          ['Sistemas', {{data.sistemas}}],
-          ['Redes', {{data.redes}}],
-          ['PMT ATMS', {{data.pmt_atms}}],
-          ['PMT Otros',  {{data.pmt_otros}}],
-          ['Operadores', {{data.operadores}}],
-          ['Técnicos', {{data.tecnicos}}],
-          ['Administrativa', {{data.administrativa}}],
-          ['Jefatura', {{data.jefatura}}],
+          ['PMT ATMS', {{data.pmt_atms_total}}],
+          ['PMT Otros', {{data.pmt_otros_total}}],
+
         ]);
 
         var options = {
-          title: 'Total Tickets por Grupo',
+          title: 'Total Tickets por Grupo Destino',
           is3D: true,
           fontSize: 15,
-          chartArea: {'width': '80%', 'height': '80%'}
+          chartArea: {'width': '80%', 'height': '80%'},
+          colors: ["#66AA00", "#DC3912",],
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('chart_grupo'));
@@ -77,20 +40,49 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Funcionario', 'Cantidad'],
-          ['ATMS (no definido)', {{data.atms}}],
-          ['Jose Cassanello', {{data.jose}}],
-          ['Emilio Yegros', {{data.emilio}}],
-          ['Gustavo González', {{data.gustavo}}],
-          ['Elias Martínez', {{data.elias}}],
+          ['Grupo', 'Cantidad'],
+          ['PMT ATMS', {{data.pmt_atms_vencidos}}],
+          ['PMT Otros', {{data.pmt_otros_vencidos}}],
         ]);
 
         var options = {
-          title: 'Total Tickets por Funcionario',
-          is3D: false,
+          title: 'Total Tickets Vencidos por Grupo',
+          is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'},
+          colors: ["#66AA00", "#DC3912",],
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('chart_funcionario'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_vencidos'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Categoria', 'Cantidad'],
+          ['Vehículo mal estacionado', {{data.pmt_atms_vehiculo_mal_estacionado}}],
+          ['Vehículo descompuesto', {{data.pmt_atms_vehiculo_descompuesto}}],
+          ['Manifestación',  {{data.pmt_atms_manifestacion}}],
+          ['Cierre de calle', {{data.pmt_atms_cierre_de_calle}}],
+          ['Accidente', {{data.pmt_atms_accidente}}],
+          ['Obras', {{data.pmt_atms_obras}}],
+          ['Obstáculo', {{data.pmt_atms_obstaculo}}],
+          ['Congestionamiento', {{data.pmt_atms_congestionamiento}}],
+          ['Infracciones Varias', {{data.pmt_atms_infracciones_varias}}],
+        ]);
+
+        var options = {
+          title: 'Total Tickets Vencidos PMT ATMS',
+          is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_vencidos_atms'));
         chart.draw(data, options);
       }
     </script>
@@ -101,20 +93,26 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Estado', 'Cantidad'],
-          ['Pendiente', {{data.pendiente}}],
-          ['Cerrado', {{data.cerrado}}],
-          ['Atendido', {{data.atendido}}],
-          ['Vencido', {{data.vencido}}],
+          ['Categoria', 'Cantidad'],
+          ['Vehículo mal estacionado', {{data.pmt_otros_vehiculo_mal_estacionado}}],
+          ['Vehículo descompuesto', {{data.pmt_otros_vehiculo_descompuesto}}],
+          ['Manifestación',  {{data.pmt_otros_manifestacion}}],
+          ['Cierre de calle', {{data.pmt_otros_cierre_de_calle}}],
+          ['Accidente', {{data.pmt_otros_accidente}}],
+          ['Obras', {{data.pmt_otros_obras}}],
+          ['Obstáculo', {{data.pmt_otros_obstaculo}}],
+          ['Congestionamiento', {{data.pmt_otros_congestionamiento}}],
+          ['Infracciones Varias', {{data.pmt_otros_infracciones_varias}}],
         ]);
 
         var options = {
-          title: 'Total Tickets por Estado',
-          is3D: false,
-          colors: ['#ff9900', '#0099C6', '#109618', '#DC3912',]
+          title: 'Total Tickets Vencidos PMT Otros',
+          is3D: true,
+          fontSize: 15,
+          chartArea: {'width': '80%', 'height': '80%'}
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('chart_estado'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_vencidos_otros'));
         chart.draw(data, options);
       }
     </script>
@@ -162,25 +160,25 @@
       <div class="container">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{% url 'estadisticas_main' %}">Estadísticas</a></li> <!-- "http://192.168.5.34:8000/main/tickets/" -->
-          <li class="breadcrumb-item active">Estadísticas Globales</li>
+          <li class="breadcrumb-item active">Estadísticas Versus</li>
         </ol>
       </div>
 
     
   <div class="container" align="center">
-    <h2>Estadísticas Globales</h2>
+    <h2>Estadísticas PMT Atms vs PMT Otros</h2>
     <br>
   </div>
 
   <div class="container">
       <table style="padding: 15px; border: 0px solid black;">
         <tr>
-          <td><div id="chart_categoria" style="width: 550px; height: 400px;"></div></td>
           <td><div id="chart_grupo" style="width: 550px; height: 400px;"></div></td>
+          <td><div id="chart_vencidos" style="width: 550px; height: 400px;"></div></td>
         </tr>
         <tr>
-          <td><div id="chart_estado" style="width: 550px; height: 400px;"></div></td>
-          <td><div id="chart_funcionario" style="width: 550px; height: 400px;"></div></td>
+          <td><div id="chart_vencidos_atms" style="width: 550px; height: 400px;"></div></td>
+          <td><div id="chart_vencidos_otros" style="width: 550px; height: 400px;"></div></td>
         </tr>
       </table>     
   </div>     

@@ -32,20 +32,27 @@ def login(request):
 	return render(request, "login.html", {})
 
 def tickets(request):
-	ticket = Ticket.objects.order_by('-fecha')
-	# tk_vencido = Ticket.objects.order_by('fecha')
+    ticket = Ticket.objects.order_by('-fecha')
+    paginator = Paginator(ticket, 25) # Show 25 contacts per page
+    # paginate_by = 25
+    # tk_vencido = Ticket.objects.order_by('fecha')
 
-	template = loader.get_template('ticket_list.html')
-	context = {
-		'ticket': ticket,
-		'categoria': ticket,
-		'grupo_destino': ticket,
-		'fecha': ticket, 
-		'estado': ticket, 
+    template = loader.get_template('ticket_list.html')
+    context = {
+    	'ticket': ticket,
+    	'categoria': ticket,
+    	'grupo_destino': ticket,
+    	'fecha': ticket, 
+    	'estado': ticket, 
 
-	}
+    }
 
-	return HttpResponse(template.render(context, request))
+    # page = request.GET.get('page')
+    # context = paginator.get_page(page)
+    # return render(request, 'list.html', {'context': context})
+
+    
+    return HttpResponse(template.render(context, request))
 
 
 def ticket_view(request):
@@ -64,15 +71,19 @@ def ticket_view(request):
 # version de prueba class
 
 class TicketListView(ListView):
-	template_name = 'tickets2.html'
-	model = Ticket
-	# listado_tickets = Tickets.objects.all()
-	# paginator = Paginator(listado_tickets, 10) # Muestra 10 elementos por página.
+    template_name = 'ticket_list.html'
+    model = Ticket
+    paginate_by = 25
+    listado_tickets = Ticket.objects.all()
+    # paginator = Paginator(listado_tickets, 10) # Muestra 10 elementos por página.
 
-	# pagina = request.GET.get('page')
- #    pagina_actual = paginator.get_page(page)
- #    return render(request, 'list.html', {'pagina_actual': pagina_actual}) 
+    # pagina = request.GET.get('page')
+    # pagina_actual = paginator.get_page(page)
+    # return render(request, 'list.html', {'pagina_actual': pagina_actual}) 
 
+    def get_queryset(self):
+        queryset = super(TicketListView, self).get_queryset()
+        return queryset.filter(author_id=self.kwargs['author_id'])
 
 
 class TicketAddView(CreateView):
@@ -109,6 +120,7 @@ class TicketEditView(UpdateView):
 	template_name = 'ticket_form2.html'
 	form_class = TicketForm
 	success_url = reverse_lazy('ticket_list')
+	paginate_by = 25
 
 	# def form_valid(self, form):
 	# 	form.save()
@@ -171,6 +183,15 @@ def estadisticas_total(request):
     atendido = Ticket.objects.only("estado").filter(estado=3).count()
     vencido = Ticket.objects.only("estado").filter(estado=4).count()
 
+    #--USUARIOS--
+    atms = Ticket.objects.filter(usuario=1).count()
+    jose = Ticket.objects.filter(usuario=2).count()
+    emilio = Ticket.objects.filter(usuario=3).count()
+    gustavo = Ticket.objects.filter(usuario=4).count()
+    elias = Ticket.objects.filter(usuario=25).count()
+
+    usuario = atms + jose + emilio + gustavo + elias
+
 
     data = {
         "mantenimiento": mantenimiento,
@@ -196,20 +217,28 @@ def estadisticas_total(request):
         "administrativa": administrativa,
         "jefatura": jefatura,
 
-
         "pendiente": pendiente,
         "cerrado": cerrado,
         "atendido": atendido,
         "vencido": vencido,
+
+        "atms": atms,
+        "jose": jose,
+        "emilio": emilio,
+        "gustavo": gustavo,
+        "elias": elias,
+
+        "usuario": usuario,
+
         }
 
     return render(request, 'estadisticas_global.html', {'data':data})
 
 
-
 def estadisticas_mes(request):
     hoy = datetime.now().day
     mes = datetime.now().month
+    # mes = 11
 
     #--CATEGORIA---
     mantenimiento = Ticket.objects.filter(fecha__month = mes).filter(categoria=1).count()
@@ -242,6 +271,15 @@ def estadisticas_mes(request):
     cerrado = Ticket.objects.filter(fecha__month = mes).filter(estado=2).count()
     atendido = Ticket.objects.filter(fecha__month = mes).filter(estado=3).count()
     vencido = Ticket.objects.filter(fecha__month = mes).filter(estado=4).count()
+
+    #--USUARIOS--
+    atms = Ticket.objects.filter(fecha__month = mes).filter(usuario=1).count()
+    jose = Ticket.objects.filter(fecha__month = mes).filter(usuario=2).count()
+    emilio = Ticket.objects.filter(fecha__month = mes).filter(usuario=3).count()
+    gustavo = Ticket.objects.filter(fecha__month = mes).filter(usuario=4).count()
+    elias = Ticket.objects.filter(fecha__month = mes).filter(usuario=25).count()
+
+    usuario = atms + jose + emilio + gustavo + elias
 
     categoria = mantenimiento + vehiculo_mal_estacionado + vehiculo_descompuesto + manifestacion + cierre_de_calle + accidente + obras + obstaculo + congestionamiento + sincronizacion + semaforo_apagado + infracciones + led_foco
     grupo = sistemas + redes + pmt_atms + pmt_otros + operadores + tecnicos + administrativa + jefatura
@@ -283,6 +321,14 @@ def estadisticas_mes(request):
         "categoria": categoria,
         "grupo": grupo,
         "estado": estado,
+
+        "atms": atms,
+        "jose": jose,
+        "emilio": emilio,
+        "gustavo": gustavo,
+        "elias": elias,
+
+        "usuario": usuario,
         }
 
     return render(request, 'estadisticas_mes.html', {'data':data})
@@ -324,6 +370,15 @@ def estadisticas_dia(request):
     atendido = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(estado=3).count()
     vencido = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(estado=4).count()
 
+    #--USUARIOS--
+    atms = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=1).count()
+    jose = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=2).count()
+    emilio = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=3).count()
+    gustavo = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=4).count()
+    elias = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(usuario=25).count()
+
+    usuario = atms + jose + emilio + gustavo + elias
+
     categoria = mantenimiento + vehiculo_mal_estacionado + vehiculo_descompuesto + manifestacion + cierre_de_calle + accidente + obras + obstaculo + congestionamiento + sincronizacion + semaforo_apagado + infracciones + led_foco
     grupo = sistemas + redes + pmt_atms + pmt_otros + operadores + tecnicos + administrativa + jefatura
     estado = pendiente + cerrado + atendido + vencido
@@ -364,6 +419,13 @@ def estadisticas_dia(request):
         "grupo": grupo,
         "estado": estado,
 
+        "atms": atms,
+        "jose": jose,
+        "emilio": emilio,
+        "gustavo": gustavo,
+        "elias": elias,
+
+        "usuario": usuario,
         }
 
     return render(request, 'estadisticas_dia.html', {'data':data})
@@ -459,7 +521,7 @@ def comunicaciones_estadisticas_dia(request):
     mantenimiento = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=1).count()
     vehiculo_mal_estacionado = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=2).count()
     vehiculo_descompuesto = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=3).count()
-    manifestacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=4).count()
+    manifestacion = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=4).count()
     cierre_de_calle = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=5).count()
     accidente = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=6).count()
     obras = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=7).count()
@@ -676,6 +738,69 @@ def prensa_estadisticas_dia(request):
 
     return render(request, 'prensa_estadisticas_hoy.html', {'data':data})
 
+
+def global_versus(request):
+	#-- Tickets total por Grupo destino --
+    pmt_atms_total = Ticket.objects.filter(grupo_destino=3).count()
+    pmt_otros_total = Ticket.objects.filter(grupo_destino=4).count()
+
+    #-- Tickets total vencidos por grupo destino --
+    pmt_atms_vencidos = Ticket.objects.filter(grupo_destino=3, estado=4).count()
+    pmt_otros_vencidos = Ticket.objects.filter(grupo_destino=4, estado=4).count()
+
+    #-- Tickets total tipos por pmt_atms --
+    pmt_atms_vehiculo_mal_estacionado = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=2).count()
+    pmt_atms_vehiculo_descompuesto = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=3).count()
+    pmt_atms_manifestacion = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=4).count()
+    pmt_atms_cierre_de_calle = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=5).count()
+    pmt_atms_accidente = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=6).count()
+    pmt_atms_obras = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=7).count()
+    pmt_atms_obstaculo = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=8).count()
+    pmt_atms_congestionamiento = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=9).count()
+    pmt_atms_infracciones_varias = Ticket.objects.filter(grupo_destino=3, estado=4, categoria=12).count()
+
+    #-- Tickets total tipos por pmt_otros --
+    pmt_otros_vehiculo_mal_estacionado = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=2).count()
+    pmt_otros_vehiculo_descompuesto = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=3).count()
+    pmt_otros_manifestacion = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=4).count()
+    pmt_otros_cierre_de_calle = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=5).count()
+    pmt_otros_accidente = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=6).count()
+    pmt_otros_obras = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=7).count()
+    pmt_otros_obstaculo = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=8).count()
+    pmt_otros_congestionamiento = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=9).count()
+    pmt_otros_infracciones_varias = Ticket.objects.filter(grupo_destino=4, estado=4, categoria=12).count()
+
+
+    data = {
+    "pmt_atms_total": pmt_atms_total,
+    "pmt_otros_total": pmt_otros_total,
+
+    "pmt_atms_vencidos": pmt_atms_vencidos,
+    "pmt_otros_vencidos": pmt_otros_vencidos,
+
+    "pmt_atms_vehiculo_mal_estacionado": pmt_atms_vehiculo_mal_estacionado,
+    "pmt_atms_vehiculo_descompuesto": pmt_atms_vehiculo_descompuesto,
+	"pmt_atms_manifestacion": pmt_atms_manifestacion,
+	"pmt_atms_cierre_de_calle": pmt_atms_cierre_de_calle,
+	"pmt_atms_accidente": pmt_atms_accidente,
+	"pmt_atms_obras": pmt_atms_obras,
+	"pmt_atms_obstaculo": pmt_atms_obstaculo,
+	"pmt_atms_congestionamiento": pmt_atms_congestionamiento,
+	"pmt_atms_infracciones_varias": pmt_atms_infracciones_varias,
+
+	"pmt_otros_vehiculo_mal_estacionado": pmt_otros_vehiculo_mal_estacionado,
+    "pmt_otros_vehiculo_descompuesto": pmt_otros_vehiculo_descompuesto,
+	"pmt_otros_manifestacion": pmt_otros_manifestacion,
+	"pmt_otros_cierre_de_calle": pmt_otros_cierre_de_calle,
+	"pmt_otros_accidente": pmt_otros_accidente,
+	"pmt_otros_obras": pmt_otros_obras,
+	"pmt_otros_obstaculo": pmt_otros_obstaculo,
+	"pmt_otros_congestionamiento": pmt_otros_congestionamiento,
+	"pmt_otros_infracciones_varias": pmt_otros_infracciones_varias,
+
+    }
+
+    return render(request, 'global_versus.html', {'data':data})
 
 
 # Mcal. López

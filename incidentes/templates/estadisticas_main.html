@@ -16,30 +16,78 @@
 		</ol>
 
 
-		<br>
-		<div class="card border-success mb-3" style="max-width: 20rem;">
-		  <a href="{% url 'estadisticas_dia' %}" class="btn btn-success btn-lg">DIA</a>
-		  <div class="card-body">
-		    <h4 class="card-title"></h4>
-		    <p class="card-text">Informe Diario</p>
-		  </div>
-		</div>
-		
-		<div class="card border-primary mb-3" style="max-width: 20rem;">
-		  <a href="{% url 'estadisticas_mes' %}" class="btn btn-primary btn-lg">MES</a>
-		  <div class="card-body">
-		    <h4 class="card-title"></h4>
-		    <p class="card-text">Informe Mensual</p>
-		  </div>
-		</div>
+		<h3>Manejo Interno</h3>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="card border-success mb-3" style="max-width: 20rem;">
+				  <a href="{% url 'estadisticas_dia' %}" class="btn btn-success btn-lg">Dia</a>
+				  <div class="card-body">
+				  		<h4 class="card-title"></h4>
+				  		<p class="card-text">Informe Diario</p>
+				  </div>
+				</div>
+			</div>
 
-		<div class="card border-secundary mb-3" style="max-width: 20rem;">
-		  <a href="{% url 'estadisticas_total' %}" class="btn btn-secundary btn-lg" style="background:#373a3c; color: white;">TOTAL</a>
-		  <div class="card-body">
-		    <h4 class="card-title"></h4>
-		    <p class="card-text">Informe Global</p>
-		  </div>
-		</div>		
+			<div class="col-lg-4">
+				<div class="card border-primary mb-3" style="max-width: 20rem;">
+				  	<a href="{% url 'estadisticas_mes' %}" class="btn btn-primary btn-lg">Mes</a>
+				  	<div class="card-body">
+				    	<h4 class="card-title"></h4>
+				    	<p class="card-text">Informe Mensual</p>
+				  	</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+				<div class="card border-secundary mb-3" style="max-width: 20rem;">
+				  	<a href="{% url 'estadisticas_total' %}" class="btn btn-secundary btn-lg" style="background:#373a3c; color: white;">TOTAL</a>
+				  	<div class="card-body">
+				    	<h4 class="card-title"></h4>
+				    	<p class="card-text">Informe Global</p>
+				  	</div>
+				</div>
+			</div>
+		</div>
+		<br>
+
+			
+		<h3>PMT seguimiento y rendimiento</h3>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="card border-info mb-3" style="max-width: 20rem;">
+					<a href="{% url 'global_versus' %}" class="btn btn-info btn-lg" style="color: white;">PMT</a>
+				  	<div class="card-body">
+				    	<h4 class="card-title"></h4>
+				    	<p class="card-text">Rendimiento PMT (Global)</p>
+				  	</div>
+				</div>
+			</div>
+		</div>
+		<br>
+
+
+		<h3><strong>Externos (visibles en red para otras direcciones)</strong></h3>
+		<div class="row">
+			<div class="col-lg-4">
+				<div class="card border-warning mb-3" style="max-width: 20rem;">
+		  			<a href="{% url 'comunicaciones_estadisticas_dia' %}" class="btn btn-warning btn-lg">Comunicaciones</a>
+		  			<div class="card-body">
+		    			<h4 class="card-title"></h4>
+		    			<p class="card-text">Comunicaciones (global)</p>
+		  			</div>
+				</div>	
+			</div>
+
+			<div class="col-lg-4">
+				<div class="card border-danger mb-3" style="max-width: 20rem;">
+		  			<a href="{% url 'prensa_estadisticas_mes' %}" class="btn btn-danger btn-lg">Prensa</a>
+		  			<div class="card-body">
+		    			<h4 class="card-title"></h4>
+		    			<p class="card-text">Prensa (recortado) </p>
+		  			</div>
+				</div>	
+			</div>
+		</div>
 
 		<br>
 		{% endblock %}
