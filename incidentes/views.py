@@ -32,20 +32,27 @@ def login(request):
 	return render(request, "login.html", {})
 
 def tickets(request):
-	ticket = Ticket.objects.order_by('-fecha')
-	# tk_vencido = Ticket.objects.order_by('fecha')
+    ticket = Ticket.objects.order_by('-fecha')
+    paginator = Paginator(ticket, 25) # Show 25 contacts per page
+    # paginate_by = 25
+    # tk_vencido = Ticket.objects.order_by('fecha')
 
-	template = loader.get_template('ticket_list.html')
-	context = {
-		'ticket': ticket,
-		'categoria': ticket,
-		'grupo_destino': ticket,
-		'fecha': ticket, 
-		'estado': ticket, 
+    template = loader.get_template('ticket_list.html')
+    context = {
+    	'ticket': ticket,
+    	'categoria': ticket,
+    	'grupo_destino': ticket,
+    	'fecha': ticket, 
+    	'estado': ticket, 
 
-	}
+    }
 
-	return HttpResponse(template.render(context, request))
+    # page = request.GET.get('page')
+    # context = paginator.get_page(page)
+    # return render(request, 'list.html', {'context': context})
+
+    
+    return HttpResponse(template.render(context, request))
 
 
 def ticket_view(request):
@@ -64,15 +71,19 @@ def ticket_view(request):
 # version de prueba class
 
 class TicketListView(ListView):
-	template_name = 'tickets2.html'
-	model = Ticket
-	# listado_tickets = Tickets.objects.all()
-	# paginator = Paginator(listado_tickets, 10) # Muestra 10 elementos por página.
+    template_name = 'ticket_list.html'
+    model = Ticket
+    paginate_by = 25
+    listado_tickets = Ticket.objects.all()
+    # paginator = Paginator(listado_tickets, 10) # Muestra 10 elementos por página.
 
-	# pagina = request.GET.get('page')
- #    pagina_actual = paginator.get_page(page)
- #    return render(request, 'list.html', {'pagina_actual': pagina_actual}) 
+    # pagina = request.GET.get('page')
+    # pagina_actual = paginator.get_page(page)
+    # return render(request, 'list.html', {'pagina_actual': pagina_actual}) 
 
+    def get_queryset(self):
+        queryset = super(TicketListView, self).get_queryset()
+        return queryset.filter(author_id=self.kwargs['author_id'])
 
 
 class TicketAddView(CreateView):
@@ -109,6 +120,7 @@ class TicketEditView(UpdateView):
 	template_name = 'ticket_form2.html'
 	form_class = TicketForm
 	success_url = reverse_lazy('ticket_list')
+	paginate_by = 25
 
 	# def form_valid(self, form):
 	# 	form.save()
@@ -509,7 +521,7 @@ def comunicaciones_estadisticas_dia(request):
     mantenimiento = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=1).count()
     vehiculo_mal_estacionado = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=2).count()
     vehiculo_descompuesto = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=3).count()
-    manifestacion = Ticket.objects.filter(fecha__day=hoy).filter(categoria=4).count()
+    manifestacion = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=4).count()
     cierre_de_calle = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=5).count()
     accidente = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=6).count()
     obras = Ticket.objects.filter(fecha__day=hoy, fecha__month=mes).filter(categoria=7).count()
