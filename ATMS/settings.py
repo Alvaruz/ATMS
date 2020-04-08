@@ -83,7 +83,7 @@ DATABASES = {
         'NAME':'atms2',
         'USER':'atms',
         'PASSWORD': 'atms',
-        'HOST':'192.168.5.24',
+        'HOST':'127.0.0.1',
         'PORT':5432,
     }
 }
